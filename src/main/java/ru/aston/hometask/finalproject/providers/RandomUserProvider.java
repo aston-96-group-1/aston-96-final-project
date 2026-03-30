@@ -15,7 +15,7 @@ public class RandomUserProvider implements IUserProvider {
     }
 
     @Override
-    public String getProviderDescription() {
+    public String getDescription() {
         return DESCRIPTION;
     }
 }

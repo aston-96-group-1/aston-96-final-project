@@ -22,7 +22,7 @@ public class ManualUserProvider implements IUserProvider {
     }
 
     @Override
-    public String getProviderDescription() {
+    public String getDescription() {
         return DESCRIPTION;
     }
 }

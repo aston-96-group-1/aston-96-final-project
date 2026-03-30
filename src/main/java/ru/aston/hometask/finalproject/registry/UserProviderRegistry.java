@@ -1,11 +1,7 @@
 package ru.aston.hometask.finalproject.registry;
 
-import ru.aston.hometask.finalproject.providers.FileUserProvider;
 import ru.aston.hometask.finalproject.providers.IUserProvider;
-import ru.aston.hometask.finalproject.providers.ManualUserProvider;
-import ru.aston.hometask.finalproject.providers.RandomUserProvider;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
