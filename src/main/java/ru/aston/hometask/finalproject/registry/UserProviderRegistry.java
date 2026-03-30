@@ -12,14 +12,8 @@ import java.util.Map;
 public class UserProviderRegistry {
     private final Map<String, IUserProvider> providers;
 
-    public UserProviderRegistry() {
-        final Map<String, IUserProvider> tmpMap = new LinkedHashMap<>();
-
-        tmpMap.put("1", new ManualUserProvider());
-        tmpMap.put("2", new RandomUserProvider());
-        tmpMap.put("3", new FileUserProvider());
-
-        providers = tmpMap;
+    public UserProviderRegistry(final Map<String, IUserProvider> providers) {
+        this.providers = providers;
     }
 
     public IUserProvider getProviderByKey(final String key) {
