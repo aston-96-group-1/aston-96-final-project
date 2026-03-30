@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface IUserProvider {
     List<User> provideUsers(final Integer size);
+
+    String getProviderDescription();
 }
