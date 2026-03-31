@@ -10,13 +10,11 @@ public class ConsoleUI {
     private final UserProviderRegistry userProviderRegistry;
     private final UserService userService;
     private final Scanner scanner;
-    private final Validator validator;
 
-    public ConsoleUI(final UserProviderRegistry userProviderRegistry, final UserService userService, final Scanner scanner, final Validator validator) {
+    public ConsoleUI(final UserProviderRegistry userProviderRegistry, final UserService userService, final Scanner scanner) {
         this.userProviderRegistry = userProviderRegistry;
         this.userService = userService;
         this.scanner = scanner;
-        this.validator = validator;
     }
 
     public void launch() {

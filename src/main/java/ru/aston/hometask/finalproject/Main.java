@@ -16,17 +16,17 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         final Scanner scanner = new Scanner(System.in);
+        final Validator validator = new Validator();
 
         final Map<String, IUserProvider> providerMap = new LinkedHashMap<>();
-        providerMap.put("1", new ManualUserProvider(scanner));
-        providerMap.put("2", new RandomUserProvider());
-        providerMap.put("3", new FileUserProvider(scanner));
+        providerMap.put("1", new ManualUserProvider(scanner, validator));
+        providerMap.put("2", new RandomUserProvider(validator));
+        providerMap.put("3", new FileUserProvider(scanner, validator));
 
         final UserProviderRegistry userProviderRegistry = new UserProviderRegistry(providerMap);
         final UserService userService = new UserService();
-        final Validator validator = new Validator();
 
-        final ConsoleUI cli = new ConsoleUI(userProviderRegistry, userService, scanner, validator);
+        final ConsoleUI cli = new ConsoleUI(userProviderRegistry, userService, scanner);
 
         cli.launch();
     }
