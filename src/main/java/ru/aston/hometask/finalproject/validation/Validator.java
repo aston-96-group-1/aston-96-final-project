@@ -34,7 +34,7 @@ public class Validator {
     }
 
     public boolean isValidPostCount(final int postCount) {
-        return postCount > POST_MIN_COUNT && postCount <= POST_MAX_COUNT;
+        return postCount >= POST_MIN_COUNT && postCount <= POST_MAX_COUNT;
     }
 
     public boolean validate(final String name, final String password, final String email, final int postCount) {
