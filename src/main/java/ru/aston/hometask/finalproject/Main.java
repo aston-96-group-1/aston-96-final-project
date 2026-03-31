@@ -7,6 +7,7 @@ import ru.aston.hometask.finalproject.providers.RandomUserProvider;
 import ru.aston.hometask.finalproject.registry.UserProviderRegistry;
 import ru.aston.hometask.finalproject.services.UserService;
 import ru.aston.hometask.finalproject.ui.ConsoleUI;
+import ru.aston.hometask.finalproject.validation.Validator;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -23,7 +24,9 @@ public class Main {
 
         final UserProviderRegistry userProviderRegistry = new UserProviderRegistry(providerMap);
         final UserService userService = new UserService();
-        final ConsoleUI cli = new ConsoleUI(userProviderRegistry, userService, scanner);
+        final Validator validator = new Validator();
+
+        final ConsoleUI cli = new ConsoleUI(userProviderRegistry, userService, scanner, validator);
 
         cli.launch();
     }
