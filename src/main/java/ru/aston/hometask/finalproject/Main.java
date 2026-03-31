@@ -11,16 +11,18 @@ import ru.aston.hometask.finalproject.validation.Validator;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         final Scanner scanner = new Scanner(System.in);
         final Validator validator = new Validator();
+        final Random random = new Random();
 
         final Map<String, IUserProvider> providerMap = new LinkedHashMap<>();
         providerMap.put("1", new ManualUserProvider(scanner, validator));
-        providerMap.put("2", new RandomUserProvider(validator));
+        providerMap.put("2", new RandomUserProvider(validator, random));
         providerMap.put("3", new FileUserProvider(scanner, validator));
 
         final UserProviderRegistry userProviderRegistry = new UserProviderRegistry(providerMap);
