@@ -15,6 +15,10 @@ public class User {
         this.postCount = builder.postCount;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public String getName() {
         return name;
     }
