@@ -15,6 +15,6 @@ public class UserService {
         if (sortStrategy == null) {
             throw new IllegalStateException("Sort strategy not set");
         }
-        sortStrategy.sort(users);
+        sortStrategy.sort(users);//kk
     }
 }
