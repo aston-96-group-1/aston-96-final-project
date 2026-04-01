@@ -9,6 +9,6 @@ public class SortByPostCount extends Sort{
     private static final Comparator<User> BY_POST_COUNT = Comparator.comparingInt(User::getPostCount);
     @Override
     public void sort(List<User> users) {
-        quickSort(users,BY_POST_COUNT);
+        quickSort(users,BY_POST_COUNT);//ggg
     }
 }
