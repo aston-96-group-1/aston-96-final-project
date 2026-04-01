@@ -5,7 +5,7 @@ public class Validator {
     public final static int PASSWORD_MAX_LENGTH = 20;
     public final static String NAME_PATTERN = "^[a-zA-Z0-9]+$";
     public final static String PASSWORD_PATTERN = "^[a-zA-Z0-9]+$";
-    public static final String EMAIL_PATTERN = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+    public static final String EMAIL_PATTERN = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+\\.(?:[a-zA-Z0-9-]+\\.)*[a-zA-Z]{2,}$";
     public static final int POST_MIN_COUNT = 0;
     public static final int POST_MAX_COUNT = 255;
 
