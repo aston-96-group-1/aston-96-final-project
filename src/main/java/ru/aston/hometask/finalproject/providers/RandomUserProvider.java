@@ -95,7 +95,7 @@ public class RandomUserProvider implements IUserProvider {
                     names.add(name);
 
                     if (validator.validate(name, password, email, postCount)) {
-                        user = new User.Builder().name(name).email(email).password(password).postCount(postCount).build();
+                        user = User.builder().name(name).email(email).password(password).postCount(postCount).build();
                     }
 
                     return user;
