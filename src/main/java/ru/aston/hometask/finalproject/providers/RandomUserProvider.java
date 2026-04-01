@@ -34,7 +34,7 @@ public class RandomUserProvider implements IUserProvider {
         return random.nextInt(end - start + 1) + start;
     }
 
-    public String generatePassword() {
+    private String generatePassword() {
         final int passwordLength = getRandomInt(Validator.PASSWORD_MIN_LENGTH, Validator.PASSWORD_MAX_LENGTH);
         final StringBuilder sb = new StringBuilder(passwordLength);
 
@@ -48,7 +48,7 @@ public class RandomUserProvider implements IUserProvider {
         return sb.toString();
     }
 
-    public String generateEmail(final String name) {
+    private String concatEmail(final String name) {
         final StringBuilder sb = new StringBuilder();
         final int domainId = getRandomInt(0, DOMAINS.size() - 1);
 
@@ -57,7 +57,7 @@ public class RandomUserProvider implements IUserProvider {
         return sb.toString();
     }
 
-    public String generateName(final Set<String> nameSet) {
+    private String generateName(final Set<String> nameSet) {
         final String baseName = USER_NAMES.get(getRandomInt(0, USER_NAMES.size() - 1));
         final StringBuilder sb = new StringBuilder(baseName);
 
@@ -88,7 +88,7 @@ public class RandomUserProvider implements IUserProvider {
         return Arrays.stream(users)
                 .map(user -> {
                     final String name = generateName(names);
-                    final String email = generateEmail(name);
+                    final String email = concatEmail(name);
                     final String password = generatePassword();
                     final int postCount = getRandomInt(Validator.POST_MIN_COUNT, Validator.POST_MAX_COUNT);
 
