@@ -3,34 +3,27 @@ package ru.aston.hometask.finalproject.providers;
 import ru.aston.hometask.finalproject.models.User;
 import ru.aston.hometask.finalproject.validation.Validator;
 
-import java.util.Random;
-import java.util.Map;
-import java.util.List;
-import java.util.Set;
-import java.util.HashSet;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
 public class RandomUserProvider implements IUserProvider {
-    public final static String DESCRIPTION = "Заполнение списка пользователей случайным образом.";
+    public static final String DESCRIPTION = "Заполнение списка пользователей случайным образом.";
+
+    private static final List<String> USER_NAMES = List.of("cat", "greg", "door", "aunt", "chair", "raskol", "harmony");
+    private static final List<String> DOMAINS = List.of("gmail.com", "yandex.ru", "mail.ru", "example.com");
+    private static final List<Map<String, Integer>> SYMBOLS_RANGE = List.of(
+            Map.of("start", 65, "end", 90),
+            Map.of("start", 97, "end", 122),
+            Map.of("start", 48, "end", 57)
+    );
 
     private final Validator validator;
     private final Random random;
-
-    private final static Map<Integer, String> USER_NAMES = Map.of(
-            0, "cat",
-            1, "greg",
-            2, "door",
-            3, "aunt",
-            4, "chair"
-    );
-
-    private final static List<String> DOMAINS = List.of("gmail.com", "yandex.ru", "mail.ru");
-
-    private final static Map<Integer, Map<String, Integer>> SYMBOLS_RANGE = Map.of(
-            0, Map.of("start", 65, "end", 90),
-            1, Map.of("start", 97, "end", 122),
-            2, Map.of("start", 48, "end", 57)
-    );
 
     public RandomUserProvider(final Validator validator, final Random random) {
         this.validator = validator;
@@ -85,36 +78,32 @@ public class RandomUserProvider implements IUserProvider {
 
     @Override
     public List<User> provideUsers(Integer size) {
+        if (size <= 0) {
+            return Collections.emptyList();
+        }
+
         final User[] users = new User[size];
         final Set<String> names = new HashSet<>();
 
-        return Arrays.stream(users).map(user -> {
-            String name = generateName(names);
-            String email = generateEmail(name);
-            String password = generatePassword();
+        return Arrays.stream(users)
+                .map(user -> {
+                    final String name = generateName(names);
+                    final String email = generateEmail(name);
+                    final String password = generatePassword();
+                    final int postCount = getRandomInt(Validator.POST_MIN_COUNT, Validator.POST_MAX_COUNT);
 
-            names.add(name);
+                    names.add(name);
 
-            if (validator.validate(name, password, email, 0)) {
-                user = new User.Builder().name(name).email(email).password(password).build();
-            }
+                    if (validator.validate(name, password, email, postCount)) {
+                        user = new User.Builder().name(name).email(email).password(password).postCount(postCount).build();
+                    }
 
-            return user;
-        }).toList();
+                    return user;
+                }).toList();
     }
 
     @Override
     public String getDescription() {
         return DESCRIPTION;
-    }
-
-    public static void main(String[] args) {
-        Validator validator1 = new Validator();
-        Random random1 = new Random();
-
-        RandomUserProvider randomUserProvider = new RandomUserProvider(validator1, random1);
-        List<User> users = randomUserProvider.provideUsers(5);
-
-        users.forEach(System.out::println);
     }
 }
