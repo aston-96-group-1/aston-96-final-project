@@ -5,7 +5,6 @@ import ru.aston.hometask.finalproject.constants.SampleUserData;
 import ru.aston.hometask.finalproject.models.User;
 import ru.aston.hometask.finalproject.validation.Validator;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
