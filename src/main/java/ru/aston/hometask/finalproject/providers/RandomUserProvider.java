@@ -1,5 +1,7 @@
 package ru.aston.hometask.finalproject.providers;
 
+import ru.aston.hometask.finalproject.constants.RangeKey;
+import ru.aston.hometask.finalproject.constants.SampleUserData;
 import ru.aston.hometask.finalproject.models.User;
 import ru.aston.hometask.finalproject.validation.Validator;
 
@@ -14,12 +16,17 @@ import java.util.Set;
 public class RandomUserProvider implements IUserProvider {
     public static final String DESCRIPTION = "Заполнение списка пользователей случайным образом.";
 
-    private static final List<String> USER_NAMES = List.of("cat", "greg", "door", "aunt", "chair", "raskol", "harmony");
-    private static final List<String> DOMAINS = List.of("gmail.com", "yandex.ru", "mail.ru", "example.com");
-    private static final List<Map<String, Integer>> SYMBOLS_RANGE = List.of(
-            Map.of("start", 65, "end", 90),
-            Map.of("start", 97, "end", 122),
-            Map.of("start", 48, "end", 57)
+    private static final List<String> USER_NAMES = SampleUserData.USER_NAMES.getList();
+
+    private static final List<String> DOMAINS = SampleUserData.EMAIL_DOMAINS.getList();
+
+    private static final Map<RangeKey, Integer> UPPER_CASE_LETTERS_RANGE = Map.of(RangeKey.START, 65, RangeKey.END, 90);
+    private static final Map<RangeKey, Integer> LOWER_CASE_LETTERS_RANGE = Map.of(RangeKey.START, 97, RangeKey.END, 122);
+    private static final Map<RangeKey, Integer> DIGITS_RANGE = Map.of(RangeKey.START, 48, RangeKey.END, 57);
+    private static final List<Map<RangeKey, Integer>> SYMBOLS_RANGE = List.of(
+            LOWER_CASE_LETTERS_RANGE,
+            UPPER_CASE_LETTERS_RANGE,
+            DIGITS_RANGE
     );
 
     private final Validator validator;
@@ -40,8 +47,8 @@ public class RandomUserProvider implements IUserProvider {
 
         for (int i = 0; i < passwordLength; i++) {
             final int rangeId = getRandomInt(0, SYMBOLS_RANGE.size() - 1);
-            final Map<String, Integer> range = SYMBOLS_RANGE.get(rangeId);
-            final char ch = (char) getRandomInt(range.get("start"), range.get("end"));
+            final Map<RangeKey, Integer> range = SYMBOLS_RANGE.get(rangeId);
+            final char ch = (char) getRandomInt(range.get(RangeKey.START), range.get(RangeKey.END));
             sb.append(ch);
         }
 
