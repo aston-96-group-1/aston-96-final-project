@@ -1,4 +1,4 @@
-package main.java.ru.aston.hometask.finalproject.services.sorting;
+package main.java.ru.aston.hometask.finalproject.sorting;
 
 import ru.aston.hometask.finalproject.models.User;
 
