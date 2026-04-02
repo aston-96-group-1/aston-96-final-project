@@ -98,6 +98,7 @@ class ValidatorTest {
         assertTrue(validator.isValidEmail("user@sub.example.com"));
         assertTrue(validator.isValidEmail("user@example.co.uk"));
         assertTrue(validator.isValidEmail("test@test.com"));
+        assertTrue(validator.isValidEmail("user@mail-group.com"));
     }
 
     @Test
@@ -113,6 +114,9 @@ class ValidatorTest {
         assertFalse(validator.isValidEmail("user name@example.com"));
         assertFalse(validator.isValidEmail("user@example .com"));
         assertFalse(validator.isValidEmail("user@exam ple.com"));
+        assertFalse(validator.isValidEmail("user@examle..com"));
+        assertFalse(validator.isValidEmail("user@examle-.com"));
+        assertFalse(validator.isValidEmail("user@-examle.com"));
     }
 
     @Test
@@ -224,7 +228,7 @@ class ValidatorTest {
         assertEquals(20, Validator.PASSWORD_MAX_LENGTH);
         assertEquals("^[a-zA-Z0-9]+$", Validator.NAME_PATTERN);
         assertEquals("^[a-zA-Z0-9]+$", Validator.PASSWORD_PATTERN);
-        assertEquals("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", Validator.EMAIL_PATTERN);
+        assertEquals("^[a-zA-Z0-9._%+-]+@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,}$", Validator.EMAIL_PATTERN);
         assertEquals(0, Validator.POST_MIN_COUNT);
         assertEquals(255, Validator.POST_MAX_COUNT);
     }
