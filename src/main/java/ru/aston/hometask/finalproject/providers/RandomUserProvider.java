@@ -5,13 +5,13 @@ import ru.aston.hometask.finalproject.constants.SampleUserData;
 import ru.aston.hometask.finalproject.models.User;
 import ru.aston.hometask.finalproject.validation.Validator;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.stream.Stream;
 
 public class RandomUserProvider implements IUserProvider {
     public static final String DESCRIPTION = "Заполнение списка пользователей случайным образом.";
@@ -84,16 +84,14 @@ public class RandomUserProvider implements IUserProvider {
     }
 
     @Override
-    public List<User> provideUsers(Integer size) {
+    public List<User> provideUsers(final Integer size) {
         if (size <= 0) {
             return Collections.emptyList();
         }
 
-        final User[] users = new User[size];
         final Set<String> names = new HashSet<>();
 
-        return Arrays.stream(users)
-                .map(user -> {
+        return Stream.generate(() -> {
                     final String name = generateName(names);
                     final String email = concatEmail(name);
                     final String password = generatePassword();
@@ -102,11 +100,12 @@ public class RandomUserProvider implements IUserProvider {
                     names.add(name);
 
                     if (validator.validate(name, password, email, postCount)) {
-                        user = User.builder().name(name).email(email).password(password).postCount(postCount).build();
+                        return User.builder().name(name).email(email).password(password).postCount(postCount).build();
                     }
-
-                    return user;
-                }).toList();
+                    return null;
+                })
+                .limit(size)
+                .toList();
     }
 
     @Override
