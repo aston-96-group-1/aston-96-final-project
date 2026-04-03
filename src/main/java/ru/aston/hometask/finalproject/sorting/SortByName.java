@@ -15,7 +15,6 @@ public class SortByName extends Sort {
     public void sort(List<User> users, SortOrder sortOrder) {
         setSortOrder(sortOrder);
         quickSort(users, BY_NAME);
-
     }
 
     @Override
