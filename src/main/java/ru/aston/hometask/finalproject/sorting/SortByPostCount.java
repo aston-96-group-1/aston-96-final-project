@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class SortByPostCount extends Sort {
-    public static final String DESCRIPTION = "Сортировка по имени.";
+    public static final String DESCRIPTION = "Сортировка по количеству постов.";
 
     private static final Comparator<User> BY_POST_COUNT = Comparator.comparingInt(User::getPostCount);
 
