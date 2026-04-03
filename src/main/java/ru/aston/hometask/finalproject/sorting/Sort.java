@@ -1,27 +1,29 @@
 package ru.aston.hometask.finalproject.sorting;
 
+import ru.aston.hometask.finalproject.constants.SortOrder;
 import ru.aston.hometask.finalproject.models.User;
 
 import java.util.Comparator;
 import java.util.List;
 
 public abstract class Sort {
-    protected boolean ascending = true;
+    private SortOrder sortOrder = SortOrder.ASC;
 
-    public abstract void sort(List<User> users);
+    public abstract void sort(List<User> users, SortOrder sortOrder);
+
     public abstract String getDescription();
 
-    public void setAscending(boolean ascending) {
-        this.ascending = ascending;
+    protected void setSortOrder(SortOrder sortOrder) {
+        this.sortOrder = sortOrder;
     }
 
-    public boolean isAscending() {
-        return ascending;
-    }
     protected void quickSort(List<User> users, Comparator<User> comparator) {
         if (users == null || users.size() <= 1) {
             return;
         }
+
+        comparator = this.sortOrder == SortOrder.DESC ? comparator.reversed() : comparator;
+
         quickSort(users, 0, users.size() - 1, comparator);
     }
 
