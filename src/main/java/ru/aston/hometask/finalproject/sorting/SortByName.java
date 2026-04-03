@@ -12,4 +12,9 @@ public class SortByName extends Sort{
         quickSort(users, BY_NAME);
 
     }
+
+    @Override
+    public String getDescription() {
+        return "Сортировка по имени (алфавитный порядок)";
+    }
 }

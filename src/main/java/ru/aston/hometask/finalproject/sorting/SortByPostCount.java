@@ -11,4 +11,9 @@ public class SortByPostCount extends Sort{
     public void sort(List<User> users) {
         quickSort(users,BY_POST_COUNT);
     }
+
+    @Override
+    public String getDescription() {
+        return "Сортировка по количеству постов (по возрастанию)";
+    }
 }

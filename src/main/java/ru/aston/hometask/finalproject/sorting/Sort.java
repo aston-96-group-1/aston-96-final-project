@@ -8,8 +8,7 @@ import java.util.List;
 public abstract class Sort {
 
     public abstract void sort(List<User> users);
-
-
+    public abstract String getDescription();
     protected void quickSort(List<User> users, Comparator<User> comparator) {
         if (users == null || users.size() <= 1) {
             return;

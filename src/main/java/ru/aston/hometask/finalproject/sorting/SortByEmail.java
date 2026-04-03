@@ -11,4 +11,9 @@ public class SortByEmail extends Sort{
     public void sort(List<User> users) {
         quickSort(users, BY_EMAIL);
     }
+
+    @Override
+    public String getDescription() {
+        return "Сортировка по email (алфавитный порядок)";
+    }
 }
