@@ -11,7 +11,7 @@ public class SortingStrategy {
     }
     public void sortStrategy(final List<User> users) {
         if (sortStrategy == null) {
-            throw new IllegalStateException("Sort strategy not set");
+            throw new IllegalStateException("Стратегия сортировки не задана");
         }
         sortStrategy.sort(users);
     }
