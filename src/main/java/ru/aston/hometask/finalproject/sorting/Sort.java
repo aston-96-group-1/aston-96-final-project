@@ -24,14 +24,14 @@ public abstract class Sort {
 
         comparator = this.sortOrder == SortOrder.DESC ? comparator.reversed() : comparator;
 
-        quickSort(users, 0, users.size() - 1, comparator);
+        doQuickSort(users, 0, users.size() - 1, comparator);
     }
 
-    private void quickSort(List<User> users, int low, int high, Comparator<User> comparator) {
+    private void doQuickSort(List<User> users, int low, int high, Comparator<User> comparator) {
         if (low < high) {
             int pivotIndex = partition(users, low, high, comparator);
-            quickSort(users, low, pivotIndex - 1, comparator);
-            quickSort(users, pivotIndex + 1, high, comparator);
+            doQuickSort(users, low, pivotIndex - 1, comparator);
+            doQuickSort(users, pivotIndex + 1, high, comparator);
         }
     }
 
