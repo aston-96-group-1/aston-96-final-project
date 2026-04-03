@@ -53,5 +53,4 @@ public abstract class Sort {
         users.set(i, users.get(j));
         users.set(j, temp);
     }
-
 }
