@@ -14,6 +14,6 @@ public class SortByEmail extends Sort{
 
     @Override
     public String getDescription() {
-        return "Сортировка по email (алфавитный порядок)";
+        return ascending ? "Сортировка по email (А → Я)" : "Сортировка по email (Я → А)";
     }
 }

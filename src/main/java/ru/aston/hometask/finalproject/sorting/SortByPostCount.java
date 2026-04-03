@@ -14,6 +14,6 @@ public class SortByPostCount extends Sort{
 
     @Override
     public String getDescription() {
-        return "Сортировка по количеству постов (по возрастанию)";
+        return ascending ? "Сортировка по количеству постов (по возрастанию)" : "Сортировка по количеству постов (по убыванию)";
     }
 }

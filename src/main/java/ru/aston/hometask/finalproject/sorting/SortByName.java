@@ -15,6 +15,6 @@ public class SortByName extends Sort{
 
     @Override
     public String getDescription() {
-        return "Сортировка по имени (алфавитный порядок)";
+        return ascending ? "Сортировка по имени (А → Я)" : "Сортировка по имени (Я → А)";
     }
 }

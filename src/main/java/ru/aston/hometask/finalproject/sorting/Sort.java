@@ -6,9 +6,18 @@ import java.util.Comparator;
 import java.util.List;
 
 public abstract class Sort {
+    protected boolean ascending = true;
 
     public abstract void sort(List<User> users);
     public abstract String getDescription();
+
+    public void setAscending(boolean ascending) {
+        this.ascending = ascending;
+    }
+
+    public boolean isAscending() {
+        return ascending;
+    }
     protected void quickSort(List<User> users, Comparator<User> comparator) {
         if (users == null || users.size() <= 1) {
             return;
