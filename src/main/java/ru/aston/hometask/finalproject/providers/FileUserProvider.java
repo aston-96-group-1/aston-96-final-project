@@ -1,5 +1,6 @@
 package ru.aston.hometask.finalproject.providers;
 
+import ru.aston.hometask.finalproject.filesystem.FileReader;
 import ru.aston.hometask.finalproject.models.User;
 import ru.aston.hometask.finalproject.validation.Validator;
 
@@ -11,10 +12,12 @@ public class FileUserProvider implements IUserProvider {
 
     private final Scanner scanner;
     private final Validator validator;
+    private final FileReader fileReader;
 
-    public FileUserProvider(final Scanner scanner, final Validator validator) {
+    public FileUserProvider(final Scanner scanner, final Validator validator, FileReader fileReader) {
         this.scanner = scanner;
         this.validator = validator;
+        this.fileReader = fileReader;
     }
 
     @Override

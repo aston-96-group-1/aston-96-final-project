@@ -1,5 +1,10 @@
 package ru.aston.hometask.finalproject;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import io.github.cdimascio.dotenv.Dotenv;
+import ru.aston.hometask.finalproject.filesystem.FileReader;
+import ru.aston.hometask.finalproject.filesystem.FileWriter;
 import ru.aston.hometask.finalproject.providers.FileUserProvider;
 import ru.aston.hometask.finalproject.providers.IUserProvider;
 import ru.aston.hometask.finalproject.providers.ManualUserProvider;
@@ -19,16 +24,20 @@ public class Main {
         final Scanner scanner = new Scanner(System.in);
         final Validator validator = new Validator();
         final Random random = new Random();
+        final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        final Dotenv dotenv = Dotenv.load();
+        final FileReader fileReader = new FileReader();
+        final FileWriter fileWriter = new FileWriter(gson, fileReader);
 
         final Map<String, IUserProvider> providerMap = new LinkedHashMap<>();
         providerMap.put("1", new ManualUserProvider(scanner, validator));
         providerMap.put("2", new RandomUserProvider(validator, random));
-        providerMap.put("3", new FileUserProvider(scanner, validator));
+        providerMap.put("3", new FileUserProvider(scanner, validator, fileReader));
 
         final UserProviderRegistry userProviderRegistry = new UserProviderRegistry(providerMap);
         final UserService userService = new UserService();
 
-        final ConsoleUI cli = new ConsoleUI(userProviderRegistry, userService, scanner);
+        final ConsoleUI cli = new ConsoleUI(userProviderRegistry, userService, scanner, fileWriter, dotenv);
 
         cli.launch();
     }
