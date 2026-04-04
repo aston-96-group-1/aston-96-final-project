@@ -32,7 +32,7 @@ public class Main {
         final Map<String, IUserProvider> providerMap = new LinkedHashMap<>();
         providerMap.put("1", new ManualUserProvider(scanner, validator));
         providerMap.put("2", new RandomUserProvider(validator, random));
-        providerMap.put("3", new FileUserProvider(scanner, validator, fileReader));
+        providerMap.put("3", new FileUserProvider(scanner, validator, fileReader, gson));
 
         final UserProviderRegistry userProviderRegistry = new UserProviderRegistry(providerMap);
         final UserService userService = new UserService();
