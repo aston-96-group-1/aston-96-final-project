@@ -14,6 +14,10 @@ public class SortByPostCountEvenOnly extends Sort {
 
     @Override
     public void sort(List<User> users, SortOrder sortOrder) {
+        if (users == null) {
+            return;
+        }
+
         List<User> usersEvenPostCount = new ArrayList<>();
         List<Integer> indexes = new ArrayList<>();
 
