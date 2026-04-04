@@ -103,6 +103,7 @@ public class RandomUserProvider implements IUserProvider {
                     if (validator.validate(name, password, email, postCount)) {
                         return User.builder().name(name).email(email).password(password).postCount(postCount).build();
                     }
+
                     return null;
                 })
                 .limit(size)
