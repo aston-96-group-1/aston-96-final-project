@@ -91,12 +91,10 @@ class SortByPostCountEvenOnlyTest {
         assertTrue(emptyList.isEmpty());
     }
 
-    //@Test
-    //void testSortNullList() {
-        //assertDoesNotThrow(() -> sortByPostCountEvenOnly.sort(null, SortOrder.ASC));
-        // добавьте проверку на null в в начале метода sort в классе SortByPostCountEvenOnly
-        // тут мы ожидаем что метод корректно обрабатывает null без выброса исключения но в SortByPostCountEvenOnly пытается вызвать users.size() когда users = null
-    //}
+    @Test
+    void testSortNullList() {
+        assertDoesNotThrow(() -> sortByPostCountEvenOnly.sort(null, SortOrder.ASC));
+    }
 
     @Test
     void testGetDescription() {
