@@ -29,28 +29,24 @@ public class FileUserProvider implements IUserProvider {
     @Override
     public List<User> provideUsers(Integer size) {
         try {
-            final String jsonContent = fileReader.readFile(scanner.nextLine().trim());
-            final Type userListType = new TypeToken<List<User>>() {}.getType();
-            final List<User> users = gson.fromJson(jsonContent, userListType);
-            final int sizeJson = users.size();
+            String jsonContent = fileReader.readFile(scanner.nextLine().trim());
+            Type userListType = new TypeToken<List<User>>() {}.getType();
+            List<User> user = gson.fromJson(jsonContent, userListType);
+
+            int sizeJson = user.size();
 
             if (size < 0){
                 size = sizeJson;
             } else if (size > sizeJson) {
-                throw new RuntimeException("Пользователей в файле меньше заданного. Size User: " + sizeJson);
-            }
-            return users.stream()
-                    .map(user -> {
-                final String name = user.getName();
-                final String password = user.getPassword();
-                final String email = user.getEmail();
-                final int postCount = user.getPostCount();
-
-                if (validator.validate(name,password,email,postCount)){
-                    return User.builder().name(name).email(email).password(password).postCount(postCount).build();
-                }
+                System.out.println("Пользователей в файле меньше заданного. Size User: " + sizeJson);
                 return null;
-            })
+            }
+
+            return user.stream()
+                    .filter(name -> validator.isValidName(name.getName()))
+                    .filter(email -> validator.isValidEmail(email.getEmail()))
+                    .filter(password -> validator.isValidPassword(password.getPassword()))
+                    .filter(postCount -> validator.isValidPostCount(postCount.getPostCount()))
                     .limit(size)
                     .collect(Collectors.toList());
         } catch (com.google.gson.JsonSyntaxException e) {
