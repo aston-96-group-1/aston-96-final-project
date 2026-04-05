@@ -14,6 +14,13 @@ public class FileReader {
             if (Files.notExists(filePath) || Files.size(filePath) == 0) {
                 return "[]";
             }
+            if (!Files.isRegularFile(filePath)) {
+                System.err.println("Ошибка: указанный путь не является файлом: " + filePath);
+                return "[]";
+            } else if (!Files.isReadable(filePath)) {
+                System.err.println("Ошибка: нет прав на чтение файла: " + filePath);
+                return "[]";
+            }
             return Files.readString(filePath);
         } catch (IOException e) {
             throw new RuntimeException(e);
