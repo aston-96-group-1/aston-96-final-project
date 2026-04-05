@@ -27,7 +27,7 @@ public class FileWriter {
 
         final Path filePath = Paths.get(userPath);
         List<User> users = new ArrayList<>();
-        final String json = fileReader.readFile(userPath);
+        final String json = (fileReader.isFileExists(userPath)) ? fileReader.readFile(userPath) : "[]";
         final User[] userArray = gson.fromJson(json, User[].class);
 
         if (userArray != null) {
