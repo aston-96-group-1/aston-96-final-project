@@ -111,7 +111,7 @@ public class ManualUserProvider implements IUserProvider {
     }
 
     private User readUserWithIndex(int index) {
-        System.out.printf("\n=== Ввод пользователя #%d ===%n", index);
+        System.out.printf("\n=== Ввод пользователя #%d ===\n", index);
         return readUserFromConsole();
     }
 
