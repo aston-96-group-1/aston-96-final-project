@@ -27,7 +27,7 @@ public class FileUserProvider implements IUserProvider {
     }
 
     public String readAddress() {
-        System.out.println("Введите путь к JSON‑файлу с студентами:");
+        System.out.println("Введите путь к JSON‑файлу с пользователями:");
         return fileReader.readFile(scanner.nextLine().trim());
     }
 
