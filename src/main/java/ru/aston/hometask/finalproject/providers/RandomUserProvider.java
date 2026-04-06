@@ -5,7 +5,6 @@ import ru.aston.hometask.finalproject.constants.SampleUserData;
 import ru.aston.hometask.finalproject.models.User;
 import ru.aston.hometask.finalproject.validation.Validator;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +65,7 @@ public class RandomUserProvider implements IUserProvider {
         return sb.toString();
     }
 
-    private String generateName(final Set<String> nameSet) {
+    private String pickName(final Set<String> nameSet) {
         final String baseName = USER_NAMES.get(getRandomInt(0, USER_NAMES.size() - 1));
         final StringBuilder sb = new StringBuilder(baseName);
 
@@ -87,21 +86,22 @@ public class RandomUserProvider implements IUserProvider {
 
     @Override
     public List<User> provideUsers(final Integer size) {
-        if (size <= 0) {
-            return Collections.emptyList();
+        Objects.requireNonNull(size, "Size must not be null");
+
+        if (size < 0) {
+            throw new IllegalArgumentException("Размер списка не может быть отрицательным!");
         }
 
         final Set<String> names = new HashSet<>();
 
         return Stream.generate(() -> {
-                    final String name = generateName(names);
+                    final String name = pickName(names);
                     final String email = concatEmail(name);
                     final String password = generatePassword();
                     final int postCount = getRandomInt(Validator.POST_MIN_COUNT, Validator.POST_MAX_COUNT);
 
-                    names.add(name);
-
                     if (validator.validate(name, password, email, postCount)) {
+                        names.add(name);
                         return User.builder().name(name).email(email).password(password).postCount(postCount).build();
                     }
 
