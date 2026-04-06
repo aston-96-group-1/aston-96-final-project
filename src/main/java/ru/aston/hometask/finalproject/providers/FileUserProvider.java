@@ -26,8 +26,8 @@ public class FileUserProvider implements IUserProvider {
         this.gson = gson;
     }
 
-    public String readAddress(){
-        System.out.println("Введите путь к JSON‑файлу со студентами:");
+    public String readAddress() {
+        System.out.println("Введите путь к JSON‑файлу с студентами:");
         return fileReader.readFile(scanner.nextLine().trim());
     }
 
