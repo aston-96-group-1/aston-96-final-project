@@ -37,8 +37,7 @@ public class FileUserProvider implements IUserProvider {
             if (fileReader.isFileExists(input)) {
                 return input;
             } else {
-                System.out.println("Файл не найден: " + input);
-                System.out.println("Попробуйте ещё раз:");
+                System.out.println("Файл не найден: " + input + "Файл не найден: " + input + "\nПопробуйте ещё раз:");
             }
         }
     }
