@@ -28,12 +28,19 @@ public class FileUserProvider implements IUserProvider {
     }
 
     private String readAddress() {
-        String imput;
-        do {
-            System.out.println("Введите путь к JSON‑файлу с пользователями:");
-            imput = scanner.nextLine().trim();
-        } while (!fileReader.isFileExists(imput));
-        return imput;
+        String input;
+        System.out.println("Введите путь к JSON‑файлу с пользователями:");
+
+        while (true) {
+            input = scanner.nextLine().trim();
+
+            if (fileReader.isFileExists(input)) {
+                return input;
+            } else {
+                System.out.println("Файл не найден: " + input);
+                System.out.println("Попробуйте ещё раз:");
+            }
+        }
     }
 
     @Override
