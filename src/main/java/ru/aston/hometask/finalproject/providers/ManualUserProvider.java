@@ -71,9 +71,9 @@ public class ManualUserProvider implements IUserProvider {
         return readValidated(
                 "Пароль: ",
                 validator::isValidPassword,
-                "Пароль должен быть от "
-                        + Validator.PASSWORD_MIN_LENGTH + " до "
-                        + Validator.PASSWORD_MAX_LENGTH + " символов."
+                String.format("Пароль должен быть от %d до %d символов",
+                        Validator.PASSWORD_MIN_LENGTH,
+                        Validator.PASSWORD_MAX_LENGTH)
         );
     }
 
@@ -89,9 +89,9 @@ public class ManualUserProvider implements IUserProvider {
         return readValidatedInt(
                 "Количество постов: ",
                 validator::isValidPostCount,
-                "Введите число от "
-                        + Validator.POST_MIN_COUNT + " до "
-                        + Validator.POST_MAX_COUNT
+                String.format("Введите число от от %d до %d",
+                        Validator.POST_MIN_COUNT,
+                        Validator.POST_MAX_COUNT)
         );
     }
 
@@ -111,7 +111,7 @@ public class ManualUserProvider implements IUserProvider {
     }
 
     private User readUserWithIndex(int index) {
-        System.out.println("\n=== Ввод пользователя #" + index + " ===");
+        System.out.printf("\n=== Ввод пользователя #%d ===\n", index);
         return readUserFromConsole();
     }
 
