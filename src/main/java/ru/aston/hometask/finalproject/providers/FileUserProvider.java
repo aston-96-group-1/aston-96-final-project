@@ -26,17 +26,22 @@ public class FileUserProvider implements IUserProvider {
         this.gson = gson;
     }
 
-    public String readAddress() {
-        System.out.println("Введите путь к JSON‑файлу с пользователями:");
-        return fileReader.readFile(scanner.nextLine().trim());
+    private String readAddress() {
+        String imput;
+        do {
+            System.out.println("Введите путь к JSON‑файлу с пользователями:");
+            imput = scanner.nextLine().trim();
+        } while (!fileReader.isFileExists(imput));
+        return imput;
     }
 
     @Override
     public List<User> provideUsers(Integer size) {
         try {
+            final String jsonFile = fileReader.readFile(readAddress());
             final Type userListType = new TypeToken<List<User>>() {
             }.getType();
-            final List<User> users = gson.fromJson(readAddress(), userListType);
+            final List<User> users = gson.fromJson(jsonFile, userListType);
 
             final int sizeJson = users.size();
 
