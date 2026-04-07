@@ -71,7 +71,7 @@ public class ManualUserProvider implements IUserProvider {
         return readValidated(
                 "Пароль: ",
                 validator::isValidPassword,
-                String.format("Пароль должен быть от %s до %s символов",
+                String.format("Пароль должен быть от %d до %d символов",
                         Validator.PASSWORD_MIN_LENGTH,
                         Validator.PASSWORD_MAX_LENGTH)
         );
