@@ -8,6 +8,7 @@ import ru.aston.hometask.finalproject.validation.Validator;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -37,6 +38,7 @@ public class FileUserProvider implements IUserProvider {
 
     @Override
     public List<User> provideUsers(Integer size) {
+        Objects.requireNonNull(size, "Size must not be null");
         try {
             final String jsonFile = fileReader.readFile(readAddress());
             final Type userListType = new TypeToken<List<User>>() {
