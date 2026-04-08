@@ -24,5 +24,6 @@ public class ConsoleUI {
 
     public void launch() {
         // TODO: Реализовать консольный интерфейс приложения
+      
     }
 }

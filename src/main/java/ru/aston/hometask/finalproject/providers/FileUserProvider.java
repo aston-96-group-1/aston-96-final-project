@@ -8,6 +8,7 @@ import ru.aston.hometask.finalproject.validation.Validator;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -26,20 +27,36 @@ public class FileUserProvider implements IUserProvider {
         this.gson = gson;
     }
 
+    private String readAddress() {
+        String input;
+        System.out.println("Введите путь к JSON‑файлу с пользователями:");
+
+        while (true) {
+            input = scanner.nextLine().trim();
+
+            if (fileReader.isFileExists(input)) {
+                return input;
+            } else {
+                System.out.printf("Файл не найден: %s\nПопробуйте ещё раз:%n", input);
+            }
+        }
+    }
+
     @Override
     public List<User> provideUsers(Integer size) {
+        Objects.requireNonNull(size, "Size must not be null");
         try {
-            final String jsonContent = fileReader.readFile(scanner.nextLine().trim());
+            final String jsonFile = fileReader.readFile(readAddress());
             final Type userListType = new TypeToken<List<User>>() {
             }.getType();
-            final List<User> users = gson.fromJson(jsonContent, userListType);
+            final List<User> users = gson.fromJson(jsonFile, userListType);
 
             final int sizeJson = users.size();
 
             if (size < 0) {
                 size = sizeJson;
             } else if (size > sizeJson) {
-                throw new RuntimeException("Пользователей в файле меньше заданного. Size User: " + sizeJson);
+                throw new RuntimeException(String.format("Пользователей в файле меньше заданного. Size User: %d", sizeJson));
             }
 
             return users.stream()
@@ -53,6 +70,7 @@ public class FileUserProvider implements IUserProvider {
                         }
                         return null;
                     })
+                    .filter(Objects::nonNull)
                     .limit(size)
                     .collect(Collectors.toList());
         } catch (com.google.gson.JsonSyntaxException e) {
