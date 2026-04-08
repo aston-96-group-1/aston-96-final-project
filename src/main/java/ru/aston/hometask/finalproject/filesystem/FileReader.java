@@ -11,10 +11,8 @@ public class FileReader {
     public boolean isFileExists(final String userPath) {
         try {
             final Path filePath = Paths.get(userPath);
-            return Files.exists(filePath);
+            return Files.isRegularFile(filePath) && Files.isReadable(filePath);
         } catch (InvalidPathException e) {
-            System.err.println("Недопустимый формат пути: " + userPath);
-            System.err.println("Ошибка: " + e.getMessage());
             return false;
         }
     }
@@ -25,9 +23,6 @@ public class FileReader {
         try {
             if (Files.size(filePath) == 0) {
                 return "[]";
-            }
-            if (!Files.isReadable(filePath)) {
-                throw new RuntimeException("Ошибка: нет прав на чтение файла: " + filePath);
             }
             return Files.readString(filePath);
         } catch (IOException e) {
