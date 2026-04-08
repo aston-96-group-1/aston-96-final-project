@@ -31,8 +31,5 @@ public class ConsoleUI {
     public void launch() {
         // TODO: Реализовать консольный интерфейс приложения
 
-        List<User> users = userProviderRegistry.getProviderByKey("2").provideUsers(10);
-        fileWriter.writeToFile(dotenv.get("SORTED_PATH"), users);
-
     }
 }
