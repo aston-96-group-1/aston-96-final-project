@@ -37,7 +37,7 @@ public class FileUserProvider implements IUserProvider {
             if (fileReader.isFileExists(input)) {
                 return input;
             } else {
-                System.out.println("Файл не найден: " + input + "Файл не найден: " + input + "\nПопробуйте ещё раз:");
+                System.out.printf("Файл не найден: %s\nПопробуйте ещё раз:%n", input);
             }
         }
     }
@@ -56,7 +56,7 @@ public class FileUserProvider implements IUserProvider {
             if (size < 0) {
                 size = sizeJson;
             } else if (size > sizeJson) {
-                throw new RuntimeException("Пользователей в файле меньше заданного. Size User: " + sizeJson);
+                throw new RuntimeException(String.format("Пользователей в файле меньше заданного. Size User: %d", sizeJson));
             }
 
             return users.stream()
@@ -70,6 +70,7 @@ public class FileUserProvider implements IUserProvider {
                         }
                         return null;
                     })
+                    .filter(Objects::nonNull)
                     .limit(size)
                     .collect(Collectors.toList());
         } catch (com.google.gson.JsonSyntaxException e) {
