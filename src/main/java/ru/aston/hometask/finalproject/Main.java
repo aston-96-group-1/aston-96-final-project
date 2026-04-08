@@ -30,7 +30,7 @@ public class Main {
         final Scanner scanner = new Scanner(System.in);
         final Validator validator = new Validator();
         final Random random = new Random();
-        final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        final Gson gson = new GsonBuilder().create();
         final Dotenv dotenv = Dotenv.load();
         final FileReader fileReader = new FileReader();
         final FileWriter fileWriter = new FileWriter(gson, fileReader);
@@ -51,8 +51,7 @@ public class Main {
 
         final SortingRegistry sortingRegistry = new SortingRegistry(sortingMap);
 
-        final ConsoleUI cli = new ConsoleUI(userProviderRegistry, userService, scanner, fileWriter, dotenv,
-                sortingRegistry);
+        final ConsoleUI cli = new ConsoleUI(userProviderRegistry, userService, scanner, fileWriter, dotenv, sortingRegistry);
 
         cli.launch();
     }
