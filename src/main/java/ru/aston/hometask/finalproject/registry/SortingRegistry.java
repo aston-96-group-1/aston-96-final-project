@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class SortingRegistry {
 
-    private Map<String, Sort> sorters;
+    private final Map<String, Sort> sorters;
 
     public SortingRegistry(final Map<String, Sort> sorters) {
         this.sorters = sorters;
@@ -20,4 +20,5 @@ public class SortingRegistry {
     public List<String> getKeys() {
         return sorters.keySet().stream().toList();
     }
+
 }
