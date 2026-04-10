@@ -81,32 +81,4 @@ public class FileUserProvider implements IUserProvider {
     public String getDescription() {
         return DESCRIPTION;
     }
-
-    public static void main(String[] args) {
-        final Scanner scanner = new Scanner(System.in);
-        final FileReader fileReader = new FileReader();
-        final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        final Validator validator = new Validator();
-
-
-        System.out.print("Введите колличество студентов: ");
-
-        int total = scanner.nextInt();
-        scanner.nextLine();
-
-
-        Scanner scanner1 = new Scanner("C:\\Users\\fiash\\OneDrive\\Документы\\HomeWork\\Java\\Aston\\aston-96-final-project\\storage\\users.txt");//System.in);//
-
-
-        FileUserProvider fileUserProvider = new FileUserProvider(scanner1, validator, fileReader, gson);
-
-        List<User> user = fileUserProvider.provideUsers(total);
-        scanner.close();
-
-
-        user.stream()
-                .forEach(System.out::println);
-
-
-    }
 }
