@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.stream.Stream;
 
 public class FileReader {
 
@@ -17,14 +18,14 @@ public class FileReader {
         }
     }
 
-    public String readFile(final String userPath) {
+    public Stream<String> readFile(final String userPath) {
         final Path filePath = Paths.get(userPath);
 
         try {
             if (Files.size(filePath) == 0) {
-                return "[]";
+                return null;
             }
-            return Files.readString(filePath);
+            return Files.lines(filePath);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
