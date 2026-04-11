@@ -69,6 +69,7 @@ public class UserCounter {
             int localCount = 0;
 
             for (int i = start; i < end; i++) {
+                if (users.get(i) == null) continue;
                 if (users.get(i).equals(targetUser)) {
                     localCount++;
                 }
