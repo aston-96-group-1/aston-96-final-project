@@ -44,6 +44,8 @@ class UserCounterTest {
         int result = UserCounter.countUsers(users, targetUser);
 
         assertEquals(0, result);
+        String output = outContent.toString();
+        assertTrue(output.isEmpty());
     }
 
     @Test
@@ -62,8 +64,8 @@ class UserCounterTest {
 
         assertEquals(1, result);
         String output = outContent.toString();
-        assertTrue(output.contains("Количество вхождений"));
-        assertTrue(output.contains("1"));
+        assertTrue(output.contains("Количество вхождений элемента User{"));
+        assertTrue(output.contains("в коллекцию: 1"));
     }
 
     @Test
@@ -84,8 +86,8 @@ class UserCounterTest {
 
         assertEquals(3, result);
         String output = outContent.toString();
-        assertTrue(output.contains("Количество вхождений"));
-        assertTrue(output.contains("3"));
+        assertTrue(output.contains("Количество вхождений элемента User{"));
+        assertTrue(output.contains("в коллекцию: 3"));
     }
 
     @Test
@@ -102,8 +104,8 @@ class UserCounterTest {
 
         assertEquals(0, result);
         String output = outContent.toString();
-        assertTrue(output.contains("Количество вхождений"));
-        assertTrue(output.contains("0"));
+        assertTrue(output.contains("Количество вхождений элемента User{"));
+        assertTrue(output.contains("в коллекцию: 0"));
     }
 
     @Test
@@ -118,7 +120,7 @@ class UserCounterTest {
 
         assertEquals(1, result);
         String output = outContent.toString();
-        assertTrue(output.contains("1"));
+        assertTrue(output.contains("в коллекцию: 1"));
     }
 
     @Test
@@ -133,7 +135,7 @@ class UserCounterTest {
 
         assertEquals(0, result);
         String output = outContent.toString();
-        assertTrue(output.contains("0"));
+        assertTrue(output.contains("в коллекцию: 0"));
     }
 
     @Test
@@ -153,7 +155,7 @@ class UserCounterTest {
 
         assertEquals(25, result);
         String output = outContent.toString();
-        assertTrue(output.contains("25"));
+        assertTrue(output.contains("в коллекцию: 25"));
     }
 
     @Test
@@ -219,10 +221,7 @@ class UserCounterTest {
         UserCounter.countUsers(users, targetUser);
 
         String output = outContent.toString();
-        assertTrue(output.contains("1"));
-        assertTrue(output.contains("john"));
-        assertTrue(output.contains("pass123"));
-        assertTrue(output.contains("john@test.com"));
+        assertTrue(output.contains("Количество вхождений элемента User{name: john; password: pass123; email: john@test.com; postCount: 10}  в коллекцию: 1"));
     }
 
     @Test
@@ -309,5 +308,56 @@ class UserCounterTest {
         int result = UserCounter.countUsers(users, targetUser);
 
         assertEquals(0, result);
+    }
+
+    @Test
+    void countUsers_shouldHandleNullValuesInList() {
+        List<User> users = new ArrayList<>();
+        User targetUser = createUser("john", "pass123", "john@test.com", 10);
+        User sameUser = createUser("john", "pass123", "john@test.com", 10);
+
+        users.add(null);
+        users.add(sameUser);
+        users.add(null);
+        users.add(targetUser);
+
+        int result = UserCounter.countUsers(users, targetUser);
+
+        assertEquals(2, result);
+        String output = outContent.toString();
+        assertTrue(output.contains("в коллекцию: 2"));
+    }
+
+    @Test
+    void countUsers_shouldHandleListWithAllNulls() {
+        List<User> users = new ArrayList<>();
+        User targetUser = createUser("john", "pass123", "john@test.com", 10);
+
+        users.add(null);
+        users.add(null);
+        users.add(null);
+
+        int result = UserCounter.countUsers(users, targetUser);
+
+        assertEquals(0, result);
+        String output = outContent.toString();
+        assertTrue(output.contains("в коллекцию: 0"));
+    }
+
+    @Test
+    void countUsers_shouldHandleMixedNullAndNonMatchingUsers() {
+        List<User> users = new ArrayList<>();
+        User targetUser = createUser("john", "pass123", "john@test.com", 10);
+
+        users.add(null);
+        users.add(createUser("jane", "pass456", "jane@test.com", 5));
+        users.add(null);
+        users.add(createUser("bob", "pass789", "bob@test.com", 3));
+
+        int result = UserCounter.countUsers(users, targetUser);
+
+        assertEquals(0, result);
+        String output = outContent.toString();
+        assertTrue(output.contains("в коллекцию: 0"));
     }
 }
