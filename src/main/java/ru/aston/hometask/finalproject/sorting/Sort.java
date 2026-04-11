@@ -1,12 +1,13 @@
 package ru.aston.hometask.finalproject.sorting;
 
+import ru.aston.hometask.finalproject.common.IDescribable;
 import ru.aston.hometask.finalproject.constants.SortOrder;
 import ru.aston.hometask.finalproject.models.User;
 
 import java.util.Comparator;
 import java.util.List;
 
-public abstract class Sort {
+public abstract class Sort implements IDescribable {
     private SortOrder sortOrder = SortOrder.ASC;
 
     public abstract void sort(List<User> users, SortOrder sortOrder);

@@ -9,6 +9,7 @@ import ru.aston.hometask.finalproject.providers.FileUserProvider;
 import ru.aston.hometask.finalproject.providers.IUserProvider;
 import ru.aston.hometask.finalproject.providers.ManualUserProvider;
 import ru.aston.hometask.finalproject.providers.RandomUserProvider;
+import ru.aston.hometask.finalproject.registry.Registry;
 import ru.aston.hometask.finalproject.registry.SortingRegistry;
 import ru.aston.hometask.finalproject.registry.UserProviderRegistry;
 import ru.aston.hometask.finalproject.services.UserService;
@@ -46,12 +47,13 @@ public class Main {
         sortingMap.put("3", new SortByPostCount());
         sortingMap.put("4", new SortByPostCountEvenOnly());
 
-        final UserProviderRegistry userProviderRegistry = new UserProviderRegistry(providerMap);
+        final Registry<IUserProvider> userProviderRegistry = new Registry<>(providerMap);
         final UserService userService = new UserService();
 
-        final SortingRegistry sortingRegistry = new SortingRegistry(sortingMap);
+        final Registry<Sort> sortingRegistry = new Registry<>(sortingMap);
 
-        final ConsoleUI cli = new ConsoleUI(userProviderRegistry, userService, scanner, fileWriter, dotenv, sortingRegistry);
+        final ConsoleUI cli = new ConsoleUI(userProviderRegistry, userService, scanner, fileWriter, dotenv,
+                sortingRegistry);
 
         cli.launch();
     }
