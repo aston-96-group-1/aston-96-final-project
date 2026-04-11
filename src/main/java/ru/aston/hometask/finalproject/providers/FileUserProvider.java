@@ -1,15 +1,21 @@
 package ru.aston.hometask.finalproject.providers;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import ru.aston.hometask.finalproject.filesystem.FileReader;
 import ru.aston.hometask.finalproject.models.User;
 import ru.aston.hometask.finalproject.validation.Validator;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FileUserProvider implements IUserProvider {
@@ -27,7 +33,7 @@ public class FileUserProvider implements IUserProvider {
         this.gson = gson;
     }
 
-    private String getFilePass() {
+    private Path getFilePath() {
         String input;
         System.out.println("Введите путь к файлу с пользователями:");
 
@@ -35,7 +41,7 @@ public class FileUserProvider implements IUserProvider {
             input = scanner.nextLine().trim();
 
             if (fileReader.isFileExists(input)) {
-                return input;
+                return Paths.get(input);
             } else {
                 System.out.printf("Файл не найден: %s\nПопробуйте ещё раз:%n", input);
             }
@@ -45,30 +51,30 @@ public class FileUserProvider implements IUserProvider {
     @Override
     public List<User> provideUsers(Integer size) {
         Objects.requireNonNull(size, "Size must not be null");
-        if (size < 0) {
-            size = Integer.MAX_VALUE;
+
+        List<User> users = new ArrayList<>();
+        final Path filePath = getFilePath();
+
+        try (Stream<String> lines = Files.lines(filePath, StandardCharsets.UTF_8)) {
+            users = lines.filter(line -> !line.isBlank())
+                    .map(line -> {
+                        try {
+                            return gson.fromJson(line, User.class);
+                        } catch (JsonSyntaxException e) {
+                            return null;
+                        }
+                    })
+                    .filter(Objects::nonNull)
+                    .filter(user -> validator.validate(user.getName(), user.getPassword(), user.getEmail(), user.getPostCount()))
+                    .limit(size < 0 ? Long.MAX_VALUE : size)
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            throw new RuntimeException("Ошибка чтения файла!");
         }
 
-        final List<User> users = new ArrayList<>();
-
-        Stream<String> lines = fileReader.readFile(getFilePass());
-        lines
-                .filter(line -> !line.trim().isEmpty())
-                .map(line -> gson.fromJson(line, User.class))
-                .map(user -> {
-                    final String name = user.getName();
-                    final String password = user.getPassword();
-                    final String email = user.getEmail();
-                    final int postCount = user.getPostCount();
-                    if (validator.validate(name, password, email, postCount)) {
-                        return User.builder().name(name).email(email).password(password).postCount(postCount).build();
-                    }
-                    return null;
-                })
-                .limit(size)
-                .peek(user -> System.out.println("Обработан пользователь: " + user))
-                .filter(Objects::nonNull)
-                .forEach(users::add);
+        if (size < 0) {
+            size = users.size();
+        }
 
         if (size > users.size()) {
             throw new RuntimeException(String.format("Пользователей в файле меньше заданного. Size User: %d", users.size()));
