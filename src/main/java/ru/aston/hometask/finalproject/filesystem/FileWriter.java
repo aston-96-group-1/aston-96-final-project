@@ -19,17 +19,17 @@ public class FileWriter {
         this.fileReader = fileReader;
     }
 
-    public void writeToFile(final String userPath, final List<User> users) {
-        if (users == null || users.isEmpty()) {
+    public <T> void writeToFile(final String userPath, final List<T> listObj) {
+        if (listObj == null || listObj.isEmpty()) {
             return;
         }
 
         final Path filePath = Paths.get(userPath);
 
-        users.forEach(user -> {
-            final String jsonUser = gson.toJson(user);
+        listObj.forEach(obj -> {
+            final String jsonObj = gson.toJson(obj);
             try {
-                Files.writeString(filePath, String.format("%s\n", jsonUser), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+                Files.writeString(filePath, String.format("%s\n", jsonObj), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

@@ -32,7 +32,7 @@ public class SessionContext {
     }
 
     public boolean isSortUsersReady() {
-        return users != null || sorter != null || sortOrder != null;
+        return users != null && sorter != null && sortOrder != null;
     }
 
     public void setProvider(IUserProvider provider) {
