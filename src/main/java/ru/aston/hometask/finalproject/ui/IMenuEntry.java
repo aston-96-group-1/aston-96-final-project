@@ -1,6 +1,8 @@
 package ru.aston.hometask.finalproject.ui;
 
-public interface IMenuEntry {
+import ru.aston.hometask.finalproject.common.IDescribable;
+
+public interface IMenuEntry extends IDescribable {
     String getDescription();
 
     String getState();
