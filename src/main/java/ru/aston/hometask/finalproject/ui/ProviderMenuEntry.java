@@ -51,6 +51,7 @@ public class ProviderMenuEntry extends MapTideMenuEntry implements IMenuEntry {
     public void execute() {
         sessionContext.setProvider(
                 getFromMap("Выберите провайдера", "Провайдера не существует", appContext.getProviderMap()));
+        sessionContext.setSize(getCollectionSize());
     }
 
 }
