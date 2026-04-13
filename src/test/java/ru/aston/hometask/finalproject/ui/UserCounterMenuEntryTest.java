@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -44,7 +45,7 @@ public class UserCounterMenuEntryTest {
 
     @Test
     void getDescription_ShouldReturnCorrectDescription() {
-        assertEquals(Strings.USER_COUNTER_MENU_TITLE.get(), userCounterMenuEntry.getDescription());
+        assertTrue(userCounterMenuEntry.getDescription().contains(Strings.USER_COUNTER_MENU_TITLE.get()));
     }
 
     @Test

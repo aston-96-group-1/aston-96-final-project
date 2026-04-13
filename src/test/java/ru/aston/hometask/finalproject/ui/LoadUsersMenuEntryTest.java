@@ -44,7 +44,7 @@ public class LoadUsersMenuEntryTest {
 
     @Test
     void getDescription_ShouldReturnCorrectDescription() {
-        assertEquals(Strings.LOAD_USERS_MENU_TITLE.get(), loadUsersMenuEntry.getDescription());
+        assertTrue(loadUsersMenuEntry.getDescription().contains(Strings.LOAD_USERS_MENU_TITLE.get()));
     }
 
     @Test

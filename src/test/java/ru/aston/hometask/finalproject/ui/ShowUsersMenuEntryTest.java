@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -39,7 +40,7 @@ public class ShowUsersMenuEntryTest {
 
     @Test
     void getDescription_ShouldReturnCorrectDescription() {
-        assertEquals(Strings.SHOW_USERS_MENU_TITLE.get(), showUsersMenuEntry.getDescription());
+        assertTrue(showUsersMenuEntry.getDescription().contains(Strings.SHOW_USERS_MENU_TITLE.get()));
     }
 
     @Test

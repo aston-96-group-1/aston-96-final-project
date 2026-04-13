@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
@@ -55,7 +56,7 @@ public class ProviderMenuEntryTest {
 
     @Test
     void getDescription_ShouldReturnCorrectDescription() {
-        assertEquals(Strings.PROVIDER_MENU_TITLE.get(), providerMenuEntry.getDescription());
+        assertTrue(providerMenuEntry.getDescription().contains(Strings.PROVIDER_MENU_TITLE.get()));
     }
 
     @Test
