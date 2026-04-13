@@ -17,7 +17,7 @@ public class SortMenuEntry implements IMenuEntry {
 
     @Override
     public String getDescription() {
-        return Strings.SORT_MENU_TITLE.get();
+        return String.join(" ", Strings.SORT_MENU_TITLE.get(), getState());
     }
 
     @Override

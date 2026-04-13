@@ -16,7 +16,7 @@ public class ShowUsersMenuEntry implements IMenuEntry {
 
     @Override
     public String getDescription() {
-        return Strings.SHOW_USERS_MENU_TITLE.get();
+        return String.join(" ", Strings.SHOW_USERS_MENU_TITLE.get(), getState());
     }
 
     @Override

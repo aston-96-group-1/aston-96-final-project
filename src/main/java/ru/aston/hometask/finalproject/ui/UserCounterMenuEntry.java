@@ -18,7 +18,7 @@ public class UserCounterMenuEntry implements IMenuEntry {
 
     @Override
     public String getDescription() {
-        return Strings.USER_COUNTER_MENU_TITLE.get();
+        return String.join(" ", Strings.USER_COUNTER_MENU_TITLE.get(), getState());
     }
 
     @Override

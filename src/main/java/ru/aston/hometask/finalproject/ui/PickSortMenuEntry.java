@@ -35,7 +35,7 @@ public class PickSortMenuEntry implements IMenuEntry {
 
     @Override
     public String getDescription() {
-        return Strings.PICK_SORT_MENU_TITLE.get();
+        return String.join(" ", Strings.PICK_SORT_MENU_TITLE.get(), getState());
     }
 
     @Override

@@ -15,29 +15,14 @@ public class ConsoleUI {
 
     }
 
-    private void printMainMenu() {
-        System.out.println(Strings.MAIN_MENU_TITLE.get());
-        menuEntryMap.keySet().forEach(key -> {
-            IMenuEntry menuEntry = menuEntryMap.get(key);
-            System.out.println(String.format("%s. %s %s", key, menuEntry.getDescription(), menuEntry.getState()));
-        });
-        System.out.println();
-    }
-
     public void launch() {
         while (true) {
-            IMenuEntry menuEntry;
-            printMainMenu();
-            do {
-                String choice = appContext.getScanner().nextLine();
-                menuEntry = menuEntryMap.get(choice);
-                if (menuEntry == null) {
-                    System.out.println(Strings.ERROR_INVALID_MENU_ENTRY.get());
-                }
-            } while (menuEntry == null);
-
+            IMenuEntry menuEntry = appContext.getConsoleService().getFromMap(
+                    Strings.MAIN_MENU_TITLE.get(),
+                    Strings.ERROR_INVALID_MENU_ENTRY.get(),
+                    menuEntryMap
+            );
             menuEntry.execute();
         }
     }
-
 }

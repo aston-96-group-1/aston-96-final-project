@@ -16,7 +16,7 @@ public class ProviderMenuEntry implements IMenuEntry {
 
     @Override
     public String getDescription() {
-        return Strings.PROVIDER_MENU_TITLE.get();
+        return String.join(" ", Strings.PROVIDER_MENU_TITLE.get(), getState());
     }
 
     @Override
