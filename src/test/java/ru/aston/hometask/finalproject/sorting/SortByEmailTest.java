@@ -168,12 +168,6 @@ class SortByEmailTest {
         void testDescriptionNotEmpty() {
             assertFalse(sortByEmail.getDescription().isEmpty());
         }
-
-        @Test
-        @DisplayName("Проверка константы DESCRIPTION")
-        void testDescriptionConstant() {
-            assertEquals(SortByEmail.DESCRIPTION, sortByEmail.getDescription());
-        }
     }
 
     @Nested

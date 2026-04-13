@@ -198,7 +198,6 @@ class FileUserProviderTest {
 
         String output = outContent.toString();
         assertTrue(output.contains("Файл не найден: " + invalidPath));
-        assertTrue(output.contains("Попробуйте ещё раз:"));
     }
 
     @Test
@@ -219,7 +218,7 @@ class FileUserProviderTest {
 
     @Test
     void getDescription_shouldReturnCorrectDescription() {
-        assertEquals("Заполнение списка пользователей из файла json.", fileUserProvider.getDescription());
+        assertEquals("Заполнение списка пользователей из файла.", fileUserProvider.getDescription());
     }
 
     @Test

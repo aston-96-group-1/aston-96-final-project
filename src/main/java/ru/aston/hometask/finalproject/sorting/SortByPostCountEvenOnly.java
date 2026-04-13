@@ -1,6 +1,7 @@
 package ru.aston.hometask.finalproject.sorting;
 
 import ru.aston.hometask.finalproject.constants.SortOrder;
+import ru.aston.hometask.finalproject.constants.Strings;
 import ru.aston.hometask.finalproject.models.User;
 
 import java.util.ArrayList;
@@ -8,8 +9,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public class SortByPostCountEvenOnly extends Sort {
-    public static final String DESCRIPTION = "Сортировка по количеству постов (только четные значения).";
-
     private static final Comparator<User> BY_POST_COUNT = Comparator.comparingInt(User::getPostCount);
 
     @Override
@@ -38,6 +37,6 @@ public class SortByPostCountEvenOnly extends Sort {
 
     @Override
     public String getDescription() {
-        return DESCRIPTION;
+        return Strings.SORT_BY_POST_COUNT_EVEN_ONLY.get();
     }
 }

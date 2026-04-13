@@ -1,5 +1,6 @@
 package ru.aston.hometask.finalproject.context;
 
+import ru.aston.hometask.finalproject.constants.Strings;
 import ru.aston.hometask.finalproject.providers.IUserProvider;
 import ru.aston.hometask.finalproject.services.ConsoleService;
 import ru.aston.hometask.finalproject.services.LogService;
@@ -62,7 +63,7 @@ public class AppContext {
         }
 
         public AppContext build() {
-            Objects.requireNonNull(List.of(scanner, providerMap, sortMap, consoleService, logService), "Fields must not be null");
+            Objects.requireNonNull(List.of(scanner, providerMap, sortMap, consoleService, logService), Strings.ERROR_OBJECT_IS_NULL.get());
             return new AppContext(this);
         }
     }

@@ -174,12 +174,6 @@ class SortByNameTest {
         void testDescriptionNotEmpty() {
             assertFalse(sortByName.getDescription().isEmpty());
         }
-
-        @Test
-        @DisplayName("Проверка константы DESCRIPTION")
-        void testDescriptionConstant() {
-            assertEquals(SortByName.DESCRIPTION, sortByName.getDescription());
-        }
     }
 
     @Nested

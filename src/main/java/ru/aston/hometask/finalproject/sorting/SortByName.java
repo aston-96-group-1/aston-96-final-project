@@ -1,14 +1,13 @@
 package ru.aston.hometask.finalproject.sorting;
 
 import ru.aston.hometask.finalproject.constants.SortOrder;
+import ru.aston.hometask.finalproject.constants.Strings;
 import ru.aston.hometask.finalproject.models.User;
 
 import java.util.Comparator;
 import java.util.List;
 
 public class SortByName extends Sort {
-    public static final String DESCRIPTION = "Сортировка по имени.";
-
     private static final Comparator<User> BY_NAME = Comparator.comparing(User::getName);
 
     @Override
@@ -19,6 +18,6 @@ public class SortByName extends Sort {
 
     @Override
     public String getDescription() {
-        return DESCRIPTION;
+        return Strings.SORT_BY_NAME_TITLE.get();
     }
 }

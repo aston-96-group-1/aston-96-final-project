@@ -2,6 +2,7 @@ package ru.aston.hometask.finalproject.providers;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import ru.aston.hometask.finalproject.constants.Strings;
 import ru.aston.hometask.finalproject.filesystem.FileReader;
 import ru.aston.hometask.finalproject.models.User;
 import ru.aston.hometask.finalproject.validation.Validator;
@@ -11,7 +12,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
@@ -19,8 +19,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FileUserProvider implements IUserProvider {
-    public final static String DESCRIPTION = "Заполнение списка пользователей из файла json.";
-
     private final Scanner scanner;
     private final Validator validator;
     private final FileReader fileReader;
@@ -35,24 +33,23 @@ public class FileUserProvider implements IUserProvider {
 
     private Path getFilePath() {
         String input;
-        System.out.println("Введите путь к файлу с пользователями:");
-
         while (true) {
+            System.out.println(Strings.FILE_PATH_INPUT_PROMPT.get());
             input = scanner.nextLine().trim();
 
             if (fileReader.isFileExists(input)) {
                 return Paths.get(input);
             } else {
-                System.out.printf("Файл не найден: %s\nПопробуйте ещё раз:%n", input);
+                System.out.println(String.format(Strings.ERROR_FILE_NOT_VALID.get(), input));
             }
         }
     }
 
     @Override
     public List<User> provideUsers(Integer size) {
-        Objects.requireNonNull(size, "Size must not be null");
+        Objects.requireNonNull(size, Strings.ERROR_OBJECT_IS_NULL.get());
 
-        List<User> users = new ArrayList<>();
+        List<User> users;
         final Path filePath = getFilePath();
 
         try (Stream<String> lines = Files.lines(filePath, StandardCharsets.UTF_8)) {
@@ -69,7 +66,7 @@ public class FileUserProvider implements IUserProvider {
                     .limit(size < 0 ? Long.MAX_VALUE : size)
                     .collect(Collectors.toList());
         } catch (IOException e) {
-            throw new RuntimeException("Ошибка чтения файла!");
+            throw new RuntimeException(Strings.ERROR_FILE_READ_FAILED.get());
         }
 
         if (size < 0) {
@@ -77,7 +74,7 @@ public class FileUserProvider implements IUserProvider {
         }
 
         if (size > users.size()) {
-            throw new RuntimeException(String.format("Пользователей в файле меньше заданного. Size User: %d", users.size()));
+            throw new RuntimeException(String.format(Strings.ERROR_FILE_SIZE_LESS_THAN_NEEDED.get(), users.size()));
         }
 
         return users;
@@ -85,6 +82,6 @@ public class FileUserProvider implements IUserProvider {
 
     @Override
     public String getDescription() {
-        return DESCRIPTION;
+        return Strings.FILE_USER_PROVIDER_TITLE.get();
     }
 }

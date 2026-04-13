@@ -2,6 +2,7 @@ package ru.aston.hometask.finalproject.providers;
 
 import ru.aston.hometask.finalproject.constants.RangeKey;
 import ru.aston.hometask.finalproject.constants.SampleUserData;
+import ru.aston.hometask.finalproject.constants.Strings;
 import ru.aston.hometask.finalproject.models.User;
 import ru.aston.hometask.finalproject.validation.Validator;
 
@@ -15,8 +16,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class RandomUserProvider implements IUserProvider {
-    public static final String DESCRIPTION = "Заполнение списка пользователей случайным образом.";
-
     private static final List<String> USER_NAMES = SampleUserData.USER_NAMES.getList();
 
     private static final List<String> DOMAINS = SampleUserData.EMAIL_DOMAINS.getList();
@@ -86,10 +85,10 @@ public class RandomUserProvider implements IUserProvider {
 
     @Override
     public List<User> provideUsers(final Integer size) {
-        Objects.requireNonNull(size, "Size must not be null");
+        Objects.requireNonNull(size, Strings.ERROR_OBJECT_IS_NULL.get());
 
         if (size < 0) {
-            throw new IllegalArgumentException("Размер списка не может быть отрицательным!");
+            throw new IllegalArgumentException(Strings.ERROR_SIZE_IS_NEGATIVE.get());
         }
 
         final Set<String> names = new HashSet<>();
@@ -114,6 +113,6 @@ public class RandomUserProvider implements IUserProvider {
 
     @Override
     public String getDescription() {
-        return DESCRIPTION;
+        return Strings.RANDOM_USER_PROVIDER_TITLE.get();
     }
 }

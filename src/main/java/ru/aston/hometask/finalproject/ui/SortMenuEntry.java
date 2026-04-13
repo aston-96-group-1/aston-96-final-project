@@ -34,6 +34,8 @@ public class SortMenuEntry implements IMenuEntry {
             return;
         }
         sessionContext.getSorter().sort(sessionContext.getUsers(), sessionContext.getSortOrder());
+        final String path = appContext.getLogService().logSorted(sessionContext.getUsers());
+        System.out.println(String.format(Strings.DATA_LOGGED_TO.get(), path));
     }
 
 }

@@ -1,5 +1,6 @@
 package ru.aston.hometask.finalproject.services;
 
+import ru.aston.hometask.finalproject.constants.Strings;
 import ru.aston.hometask.finalproject.models.User;
 
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class UserCounter {
             total += worker.getCount();
         }
 
-        System.out.printf("\nКоличество вхождений элемента User{%s}  в коллекцию: %d.\n", targetUser.toString(), total);
+        System.out.printf(Strings.USER_COUNTER_OUTPUT.get(), targetUser.toString(), total);
 
         return total;
     }

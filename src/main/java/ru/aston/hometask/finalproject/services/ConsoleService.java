@@ -1,6 +1,7 @@
 package ru.aston.hometask.finalproject.services;
 
 import ru.aston.hometask.finalproject.common.IDescribable;
+import ru.aston.hometask.finalproject.constants.Strings;
 import ru.aston.hometask.finalproject.models.User;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class ConsoleService {
             result = map.get(choice);
 
             if (result == null) {
-                printError(String.format("%s, Попробуйте ещё раз:", errorMessage));
+                printError(String.format("%s, %S", errorMessage, Strings.TRY_AGAIN.get()));
             }
 
         } while (result == null);
@@ -44,7 +45,7 @@ public class ConsoleService {
             try {
                 num = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                printError("Необходимо ввести число");
+                printError(Strings.ERROR_INPUT_MUST_BE_NUMBER.get());
             }
         } while (num == null);
 
@@ -52,7 +53,7 @@ public class ConsoleService {
     }
 
     public void printUsers(final List<User> users) {
-        System.out.println("Пользователи:");
+        System.out.println(Strings.USERS.get());
         for (int i=0; i<users.size(); i++) {
             System.out.printf("%d. %s%n", i, users.get(i));
         }
@@ -63,7 +64,7 @@ public class ConsoleService {
     }
 
     public void waitForEnter() {
-        System.out.println("Нажмите ENTER для продолжения...");
+        System.out.println(Strings.PRESS_ENTER.get());
         scanner.nextLine();
     }
 }

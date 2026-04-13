@@ -84,8 +84,8 @@ class ManualUserProviderTest {
         assertEquals(5, secondUser.getPostCount());
 
         String output = outContent.toString();
-        assertTrue(output.contains("=== Ввод пользователя #1 ==="));
-        assertTrue(output.contains("=== Ввод пользователя #2 ==="));
+        assertTrue(output.contains("=== ввод пользователя #1 ==="));
+        assertTrue(output.contains("=== ввод пользователя #2 ==="));
         assertTrue(output.contains("Имя:"));
         assertTrue(output.contains("Пароль:"));
         assertTrue(output.contains("Email:"));
@@ -239,7 +239,7 @@ class ManualUserProviderTest {
                 IllegalArgumentException.class,
                 () -> manualUserProvider.provideUsers(-5)
         );
-        assertEquals("Size must not be negative", exception.getMessage());
+        assertEquals("Размер списка не может быть отрицательным!", exception.getMessage());
     }
 
     @Test
@@ -274,9 +274,9 @@ class ManualUserProviderTest {
         manualUserProvider.provideUsers(size);
 
         String output = outContent.toString();
-        assertTrue(output.contains("=== Ввод пользователя #1 ==="));
-        assertTrue(output.contains("=== Ввод пользователя #2 ==="));
-        assertTrue(output.contains("=== Ввод пользователя #3 ==="));
+        assertTrue(output.contains("=== ввод пользователя #1 ==="));
+        assertTrue(output.contains("=== ввод пользователя #2 ==="));
+        assertTrue(output.contains("=== ввод пользователя #3 ==="));
     }
 
     @Test

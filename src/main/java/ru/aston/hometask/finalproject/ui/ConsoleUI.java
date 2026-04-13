@@ -6,8 +6,6 @@ import ru.aston.hometask.finalproject.context.AppContext;
 import java.util.Map;
 
 public class ConsoleUI {
-    public static final String ERROR_INVALID_MENU_ENTRY = "Данного пункта не существует, попробуйте еще раз:";
-
     private final AppContext appContext;
     private final Map<String, IMenuEntry> menuEntryMap;
 
@@ -23,6 +21,7 @@ public class ConsoleUI {
             IMenuEntry menuEntry = menuEntryMap.get(key);
             System.out.println(String.format("%s. %s %s", key, menuEntry.getDescription(), menuEntry.getState()));
         });
+        System.out.println();
     }
 
     public void launch() {
@@ -33,7 +32,7 @@ public class ConsoleUI {
                 String choice = appContext.getScanner().nextLine();
                 menuEntry = menuEntryMap.get(choice);
                 if (menuEntry == null) {
-                    System.out.println(ERROR_INVALID_MENU_ENTRY);
+                    System.out.println(Strings.ERROR_INVALID_MENU_ENTRY.get());
                 }
             } while (menuEntry == null);
 

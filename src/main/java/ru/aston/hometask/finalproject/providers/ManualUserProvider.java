@@ -1,5 +1,6 @@
 package ru.aston.hometask.finalproject.providers;
 
+import ru.aston.hometask.finalproject.constants.Strings;
 import ru.aston.hometask.finalproject.models.User;
 import ru.aston.hometask.finalproject.validation.Validator;
 
@@ -12,8 +13,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ManualUserProvider implements IUserProvider {
-    public static final String DESCRIPTION = "Ручной ввод пользователей.";
-
     private final Scanner scanner;
     private final Validator validator;
 
@@ -62,17 +61,17 @@ public class ManualUserProvider implements IUserProvider {
 
     private String readName() {
         return readValidated(
-                "Имя: ",
+                Strings.NAME_PROMPT.get(),
                 validator::isValidName,
-                "Имя должно содержать только латинские буквы и цифры."
+                Strings.ERROR_NAME_FORMAT.get()
         );
     }
 
     private String readPassword() {
         return readValidated(
-                "Пароль: ",
+                Strings.PASSWORD_PROMPT.get(),
                 validator::isValidPassword,
-                String.format("Пароль должен быть от %d до %d символов",
+                String.format(Strings.ERROR_PASSWORD_FORMAT.get(),
                         Validator.PASSWORD_MIN_LENGTH,
                         Validator.PASSWORD_MAX_LENGTH)
         );
@@ -80,17 +79,17 @@ public class ManualUserProvider implements IUserProvider {
 
     private String readEmail() {
         return readValidated(
-                "Email: ",
+                Strings.EMAIL_PROMPT.get(),
                 validator::isValidEmail,
-                "Некорректный email."
+                Strings.ERROR_EMAIL_FORMAT.get()
         );
     }
 
     private int readPostCount() {
         return readValidatedInt(
-                "Количество постов: ",
+                Strings.POST_COUNT_PROMPT.get(),
                 validator::isValidPostCount,
-                String.format("Введите число от от %d до %d",
+                String.format(Strings.ERROR_POST_COUNT_FORMAT.get(),
                         Validator.POST_MIN_COUNT,
                         Validator.POST_MAX_COUNT)
         );
@@ -112,16 +111,16 @@ public class ManualUserProvider implements IUserProvider {
     }
 
     private User readUserWithIndex(int index) {
-        System.out.printf("\n=== Ввод пользователя #%d ===\n", index);
+        System.out.printf(Strings.USER_INPUT_TITLE.get(), index);
         return readUserFromConsole();
     }
 
     @Override
     public List<User> provideUsers(Integer size) {
-        Objects.requireNonNull(size, "Size must not be null");
+        Objects.requireNonNull(size, Strings.ERROR_OBJECT_IS_NULL.get());
 
         if (size < 0) {
-            throw new IllegalArgumentException("Size must not be negative");
+            throw new IllegalArgumentException(Strings.ERROR_SIZE_IS_NEGATIVE.get());
         }
 
         return IntStream.range(0, size)
@@ -131,6 +130,6 @@ public class ManualUserProvider implements IUserProvider {
 
     @Override
     public String getDescription() {
-        return DESCRIPTION;
+        return Strings.MANUAL_USER_PROVIDER_TITLE.get();
     }
 }

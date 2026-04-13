@@ -165,7 +165,7 @@ class RandomUserProviderTest {
         NullPointerException exception = assertThrows(NullPointerException.class, () -> {
             provider.provideUsers(null);
         });
-        assertEquals("Size must not be null", exception.getMessage());
+        assertEquals("Must not be null!", exception.getMessage());
     }
 
     @Test
