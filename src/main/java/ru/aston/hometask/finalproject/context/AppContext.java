@@ -1,9 +1,8 @@
 package ru.aston.hometask.finalproject.context;
 
-import io.github.cdimascio.dotenv.Dotenv;
-import ru.aston.hometask.finalproject.filesystem.FileWriter;
 import ru.aston.hometask.finalproject.providers.IUserProvider;
-import ru.aston.hometask.finalproject.services.UserCounter;
+import ru.aston.hometask.finalproject.services.ConsoleService;
+import ru.aston.hometask.finalproject.services.LogService;
 import ru.aston.hometask.finalproject.sorting.Sort;
 
 import java.util.List;
@@ -15,17 +14,15 @@ public class AppContext {
     private final Scanner scanner;
     private final Map<String, IUserProvider> providerMap;
     private final Map<String, Sort> sortMap;
-    private final Dotenv dotenv;
-    private final FileWriter fileWriter;
-    private final UserCounter userCounter;
+    private final ConsoleService consoleService;
+    private final LogService logService;
 
     public AppContext(final Builder builder) {
         this.scanner = builder.scanner;
         this.providerMap = builder.providerMap;
         this.sortMap = builder.sortMap;
-        this.dotenv = builder.dotenv;
-        this.fileWriter = builder.fileWriter;
-        this.userCounter = builder.userCounter;
+        this.consoleService = builder.consoleService;
+        this.logService = builder.logService;
     }
 
     public static Builder builder() {
@@ -36,9 +33,8 @@ public class AppContext {
         private Scanner scanner;
         private Map<String, IUserProvider> providerMap;
         private Map<String, Sort> sortMap;
-        private Dotenv dotenv;
-        private FileWriter fileWriter;
-        private UserCounter userCounter;
+        private ConsoleService consoleService;
+        private LogService logService;
 
         public Builder scanner(final Scanner scanner) {
             this.scanner = scanner;
@@ -55,23 +51,18 @@ public class AppContext {
             return this;
         }
 
-        public Builder dotenv(final Dotenv dotenv) {
-            this.dotenv = dotenv;
+        public Builder consoleService(final ConsoleService consoleService) {
+            this.consoleService = consoleService;
             return this;
         }
 
-        public Builder fileWriter(final FileWriter fileWriter) {
-            this.fileWriter = fileWriter;
-            return this;
-        }
-
-        public Builder userCounter(final UserCounter userCounter) {
-            this.userCounter = userCounter;
+        public Builder logService(final LogService logService) {
+            this.logService = logService;
             return this;
         }
 
         public AppContext build() {
-            Objects.requireNonNull(List.of(scanner, providerMap, sortMap, dotenv, fileWriter, userCounter), "Fields must not be null");
+            Objects.requireNonNull(List.of(scanner, providerMap, sortMap, consoleService, logService), "Fields must not be null");
             return new AppContext(this);
         }
     }
@@ -88,15 +79,11 @@ public class AppContext {
         return sortMap;
     }
 
-    public Dotenv getDotenv() {
-        return dotenv;
+    public ConsoleService getConsoleService() {
+        return consoleService;
     }
 
-    public FileWriter getFileWriter() {
-        return fileWriter;
-    }
-
-    public UserCounter getUserCounter() {
-        return userCounter;
+    public LogService getLogService() {
+        return logService;
     }
 }
