@@ -4,28 +4,22 @@ import java.util.Arrays;
 
 import ru.aston.hometask.finalproject.constants.SortOrder;
 import ru.aston.hometask.finalproject.constants.StateSign;
+import ru.aston.hometask.finalproject.constants.Strings;
 import ru.aston.hometask.finalproject.context.AppContext;
 import ru.aston.hometask.finalproject.context.SessionContext;
-import ru.aston.hometask.finalproject.sorting.Sort;
 
-public class PickSortMenuEntry extends MapTideMenuEntry implements IMenuEntry {
-
-    public final String DESCRIPTION = "Выбрать сортировку";
+public class PickSortMenuEntry implements IMenuEntry {
     private final AppContext appContext;
     private final SessionContext sessionContext;
 
     public PickSortMenuEntry(final AppContext appContext, final SessionContext sessionContext) {
-
-        super(appContext);
-
         this.appContext = appContext;
         this.sessionContext = sessionContext;
     }
 
     private SortOrder getSortOrder() {
-        System.out.println("Выберите порядок сортировки");
-        Arrays.stream(SortOrder.values())
-                .forEach(sortOrder -> System.out.println(String.format("%s. %s", sortOrder.getKey(), sortOrder)));
+        System.out.println(Strings.SORT_ORDER_INPUT_PROMPT.get());
+        Arrays.stream(SortOrder.values()).forEach(sortOrder -> System.out.println(String.format("%s. %s", sortOrder.getKey(), sortOrder)));
 
         SortOrder sortOrder = null;
 
@@ -41,7 +35,7 @@ public class PickSortMenuEntry extends MapTideMenuEntry implements IMenuEntry {
 
     @Override
     public String getDescription() {
-        return DESCRIPTION;
+        return Strings.PICK_SORT_MENU_TITLE.get();
     }
 
     @Override
@@ -51,9 +45,7 @@ public class PickSortMenuEntry extends MapTideMenuEntry implements IMenuEntry {
 
     @Override
     public void execute() {
-        sessionContext
-                .setSorter(getFromMap("Выберите сортировку", "Сортировки не существует", appContext.getSortMap()));
+        sessionContext.setSorter(appContext.getConsoleService().getFromMap(Strings.SORT_CHOOSER_TITLE.get(), Strings.ERROR_SORT_NOTFOUND.get(), appContext.getSortMap()));
         sessionContext.setSortOrder(getSortOrder());
     }
-
 }

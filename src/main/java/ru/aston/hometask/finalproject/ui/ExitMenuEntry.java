@@ -1,12 +1,11 @@
 package ru.aston.hometask.finalproject.ui;
 
+import ru.aston.hometask.finalproject.constants.Strings;
+
 public class ExitMenuEntry implements IMenuEntry {
-
-    public static final String DESCRIPTION = "Выход";
-
     @Override
     public String getDescription() {
-        return DESCRIPTION;
+        return Strings.EXIT_MENU_TITLE.get();
     }
 
     @Override

@@ -1,12 +1,11 @@
 package ru.aston.hometask.finalproject.ui;
 
 import ru.aston.hometask.finalproject.constants.StateSign;
+import ru.aston.hometask.finalproject.constants.Strings;
 import ru.aston.hometask.finalproject.context.AppContext;
 import ru.aston.hometask.finalproject.context.SessionContext;
 
 public class SortMenuEntry implements IMenuEntry {
-
-    public static final String DESCRIPTION = "Отсортировать пользователей";
     private final AppContext appContext;
     private final SessionContext sessionContext;
 
@@ -18,7 +17,7 @@ public class SortMenuEntry implements IMenuEntry {
 
     @Override
     public String getDescription() {
-        return DESCRIPTION;
+        return Strings.SORT_MENU_TITLE.get();
     }
 
     @Override
@@ -29,10 +28,8 @@ public class SortMenuEntry implements IMenuEntry {
     @Override
     public void execute() {
         if (!sessionContext.isSortUsersReady()) {
-
-            System.out.println(
-                    "Необходимо выбрать пользователей, сортировку и порядок сортировки!\nНажмите ENTER для продолжения...");
-            appContext.getScanner().nextLine();
+            appContext.getConsoleService().printError(Strings.ERROR_USERS_SORT_NOT_READY.get());
+            appContext.getConsoleService().waitForEnter();
 
             return;
         }
