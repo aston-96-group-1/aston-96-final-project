@@ -11,6 +11,8 @@ import ru.aston.hometask.finalproject.providers.FileUserProvider;
 import ru.aston.hometask.finalproject.providers.IUserProvider;
 import ru.aston.hometask.finalproject.providers.ManualUserProvider;
 import ru.aston.hometask.finalproject.providers.RandomUserProvider;
+import ru.aston.hometask.finalproject.services.ConsoleService;
+import ru.aston.hometask.finalproject.services.LogService;
 import ru.aston.hometask.finalproject.services.UserCounter;
 import ru.aston.hometask.finalproject.services.UserService;
 import ru.aston.hometask.finalproject.sorting.SortByEmail;
@@ -25,6 +27,7 @@ import ru.aston.hometask.finalproject.ui.PickSortMenuEntry;
 import ru.aston.hometask.finalproject.ui.ProviderMenuEntry;
 import ru.aston.hometask.finalproject.ui.ShowUsersMenuEntry;
 import ru.aston.hometask.finalproject.ui.SortMenuEntry;
+import ru.aston.hometask.finalproject.ui.UserCounterMenuEntry;
 import ru.aston.hometask.finalproject.validation.Validator;
 import ru.aston.hometask.finalproject.sorting.Sort;
 
@@ -42,7 +45,8 @@ public class Main {
         final Dotenv dotenv = Dotenv.load();
         final FileReader fileReader = new FileReader();
         final FileWriter fileWriter = new FileWriter(gson, fileReader);
-        final UserCounter userCounter = new UserCounter();
+        final LogService logService = new LogService(dotenv, fileWriter);
+        final ConsoleService consoleService = new ConsoleService(scanner);
 
         final Map<String, IUserProvider> providerMap = new LinkedHashMap<>();
         providerMap.put("1", new ManualUserProvider(scanner, validator));
@@ -55,8 +59,7 @@ public class Main {
         sortingMap.put("3", new SortByPostCount());
         sortingMap.put("4", new SortByPostCountEvenOnly());
 
-        final AppContext appContext = AppContext.builder().scanner(scanner).dotenv(dotenv).fileWriter(fileWriter)
-                .providerMap(providerMap).sortMap(sortingMap).userCounter(userCounter).build();
+        final AppContext appContext = AppContext.builder().scanner(scanner).providerMap(providerMap).sortMap(sortingMap).consoleService(consoleService).logService(logService).build();
 
         final SessionContext sessionContext = new SessionContext();
 
@@ -66,7 +69,8 @@ public class Main {
         menuEntryMap.put("3", new LoadUsersMenuEntry(appContext, sessionContext));
         menuEntryMap.put("4", new ShowUsersMenuEntry(appContext, sessionContext));
         menuEntryMap.put("5", new SortMenuEntry(appContext, sessionContext));
-        menuEntryMap.put("6", new ExitMenuEntry());
+        menuEntryMap.put("6", new UserCounterMenuEntry(appContext, sessionContext));
+        menuEntryMap.put("0", new ExitMenuEntry());
 
         final UserService userService = new UserService();
 
