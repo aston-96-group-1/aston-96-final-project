@@ -16,15 +16,15 @@ public class SessionContext {
     private SortOrder sortOrder;
 
     public boolean isUserProviderReady() {
-        return provider != null || size != null;
+        return provider != null && size != null;
     }
 
     public boolean isSorterReady() {
-        return sorter != null || sortOrder != null;
+        return sorter != null && sortOrder != null;
     }
 
     public boolean isLoadUsersReady() {
-        return provider != null || size != null;
+        return provider != null && size != null;
     }
 
     public boolean isShowUsersReady() {
