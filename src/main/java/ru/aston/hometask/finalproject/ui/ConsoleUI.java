@@ -1,35 +1,44 @@
 package ru.aston.hometask.finalproject.ui;
 
-import io.github.cdimascio.dotenv.Dotenv;
-import ru.aston.hometask.finalproject.filesystem.FileWriter;
-import ru.aston.hometask.finalproject.registry.SortingRegistry;
-import ru.aston.hometask.finalproject.registry.UserProviderRegistry;
-import ru.aston.hometask.finalproject.services.UserService;
+import ru.aston.hometask.finalproject.constants.Strings;
+import ru.aston.hometask.finalproject.context.AppContext;
 
-import java.util.Scanner;
+import java.util.Map;
 
 public class ConsoleUI {
-    private final UserProviderRegistry userProviderRegistry;
-    private final UserService userService;
-    private final Scanner scanner;
-    private final FileWriter fileWriter;
-    private final Dotenv dotenv;
-    private final SortingRegistry sortingRegistry;
+    public static final String ERROR_INVALID_MENU_ENTRY = "Данного пункта не существует, попробуйте еще раз:";
 
-    public ConsoleUI(final UserProviderRegistry userProviderRegistry, final UserService userService,
-            final Scanner scanner, final FileWriter fileWriter, final Dotenv dotenv,
-            final SortingRegistry sortingRegistry) {
-        this.userProviderRegistry = userProviderRegistry;
-        this.userService = userService;
-        this.scanner = scanner;
-        this.fileWriter = fileWriter;
-        this.dotenv = dotenv;
-        this.sortingRegistry = sortingRegistry;
+    private final AppContext appContext;
+    private final Map<String, IMenuEntry> menuEntryMap;
+
+    public ConsoleUI(final AppContext appContext, final Map<String, IMenuEntry> menuEntryMap) {
+        this.appContext = appContext;
+        this.menuEntryMap = menuEntryMap;
+
+    }
+
+    private void printMainMenu() {
+        System.out.println(Strings.MAIN_MENU_TITLE.get());
+        menuEntryMap.keySet().forEach(key -> {
+            IMenuEntry menuEntry = menuEntryMap.get(key);
+            System.out.println(String.format("%s. %s %s", key, menuEntry.getDescription(), menuEntry.getState()));
+        });
     }
 
     public void launch() {
-        // TODO: Реализовать консольный интерфейс приложения
-      
+        while (true) {
+            IMenuEntry menuEntry;
+            printMainMenu();
+            do {
+                String choice = appContext.getScanner().nextLine();
+                menuEntry = menuEntryMap.get(choice);
+                if (menuEntry == null) {
+                    System.out.println(ERROR_INVALID_MENU_ENTRY);
+                }
+            } while (menuEntry == null);
+
+            menuEntry.execute();
+        }
     }
 
 }
