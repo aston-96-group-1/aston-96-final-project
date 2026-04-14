@@ -8,8 +8,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public class SortByPostCount extends Sort {
-    public static final String DESCRIPTION = Strings.SORT_BY_POST_COUNT.get();
-
     private static final Comparator<User> BY_POST_COUNT = Comparator.comparingInt(User::getPostCount);
 
     @Override
@@ -20,6 +18,6 @@ public class SortByPostCount extends Sort {
 
     @Override
     public String getDescription() {
-        return DESCRIPTION;
+        return Strings.SORT_BY_POST_COUNT.get();
     }
 }

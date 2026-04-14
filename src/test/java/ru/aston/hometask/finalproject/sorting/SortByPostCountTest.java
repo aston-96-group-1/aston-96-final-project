@@ -1,6 +1,7 @@
 package ru.aston.hometask.finalproject.sorting;
 
 import ru.aston.hometask.finalproject.constants.SortOrder;
+import ru.aston.hometask.finalproject.constants.Strings;
 import ru.aston.hometask.finalproject.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -247,7 +248,7 @@ class SortByPostCountTest {
         @Test
         @DisplayName("Проверка константы DESCRIPTION")
         void testDescriptionConstant() {
-            assertEquals(SortByPostCount.DESCRIPTION, sortByPostCount.getDescription());
+            assertEquals(Strings.SORT_BY_POST_COUNT.get(), sortByPostCount.getDescription());
         }
     }
 
