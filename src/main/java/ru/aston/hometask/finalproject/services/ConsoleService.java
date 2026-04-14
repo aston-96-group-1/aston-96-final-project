@@ -16,7 +16,7 @@ public class ConsoleService {
     }
 
     public <T extends IDescribable> T getFromMap(String title, String errorMessage, Map<String, T> map) {
-        T result = null;
+        T result;
 
         System.out.println(title);
 
@@ -54,7 +54,7 @@ public class ConsoleService {
 
     public void printUsers(final List<User> users) {
         System.out.println(Strings.USERS.get());
-        for (int i=0; i<users.size(); i++) {
+        for (int i = 0; i < users.size(); i++) {
             System.out.printf("%d. %s%n", i, users.get(i));
         }
     }

@@ -19,9 +19,14 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Scanner;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.anyInt;
 
 @ExtendWith(MockitoExtension.class)
 class FileUserProviderTest {
@@ -48,7 +53,7 @@ class FileUserProviderTest {
     @BeforeEach
     void setUp() {
         System.setOut(new PrintStream(outContent));
-        testFile = tempDir.resolve("users.json");
+        testFile = tempDir.resolve("users.txt");
         fileUserProvider = new FileUserProvider(scanner, validator, fileReader, realGson);
     }
 

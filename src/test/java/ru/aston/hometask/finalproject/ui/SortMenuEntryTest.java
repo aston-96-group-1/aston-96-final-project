@@ -26,6 +26,12 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class SortMenuEntryTest {
     @Mock
+    private LogService mockLogService;
+
+    @Mock
+    private Sort mockSorter;
+
+    @Mock
     private ConsoleService consoleService;
 
     @Mock
@@ -78,8 +84,6 @@ public class SortMenuEntryTest {
     @Test
     void execute_WhenReady_ShouldSortAndLogUsers() {
         List<User> mockUsers = createTestUsers();
-        Sort mockSorter = org.mockito.Mockito.mock(Sort.class);
-        LogService mockLogService = org.mockito.Mockito.mock(LogService.class);
         String fakePath = "test/path.txt";
 
         when(sessionContext.isSortUsersReady()).thenReturn(true);

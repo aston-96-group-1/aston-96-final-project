@@ -13,8 +13,6 @@ import ru.aston.hometask.finalproject.providers.ManualUserProvider;
 import ru.aston.hometask.finalproject.providers.RandomUserProvider;
 import ru.aston.hometask.finalproject.services.ConsoleService;
 import ru.aston.hometask.finalproject.services.LogService;
-import ru.aston.hometask.finalproject.services.UserCounter;
-import ru.aston.hometask.finalproject.services.UserService;
 import ru.aston.hometask.finalproject.sorting.SortByEmail;
 import ru.aston.hometask.finalproject.sorting.SortByName;
 import ru.aston.hometask.finalproject.sorting.SortByPostCount;
@@ -44,7 +42,7 @@ public class Main {
         final Gson gson = new GsonBuilder().create();
         final Dotenv dotenv = Dotenv.load();
         final FileReader fileReader = new FileReader();
-        final FileWriter fileWriter = new FileWriter(gson, fileReader);
+        final FileWriter fileWriter = new FileWriter(gson);
         final LogService logService = new LogService(dotenv, fileWriter);
         final ConsoleService consoleService = new ConsoleService(scanner);
 
@@ -71,8 +69,6 @@ public class Main {
         menuEntryMap.put("5", new SortMenuEntry(appContext, sessionContext));
         menuEntryMap.put("6", new UserCounterMenuEntry(appContext, sessionContext));
         menuEntryMap.put("0", new ExitMenuEntry());
-
-        final UserService userService = new UserService();
 
         final ConsoleUI cli = new ConsoleUI(appContext, menuEntryMap);
 

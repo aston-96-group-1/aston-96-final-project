@@ -6,7 +6,6 @@ import ru.aston.hometask.finalproject.providers.IUserProvider;
 import ru.aston.hometask.finalproject.sorting.Sort;
 
 import java.util.List;
-import java.util.Map;
 
 public class SessionContext {
     private IUserProvider provider;

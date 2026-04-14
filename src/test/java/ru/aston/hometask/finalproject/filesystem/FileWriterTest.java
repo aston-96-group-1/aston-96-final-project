@@ -31,8 +31,7 @@ public class FileWriterTest {
     @BeforeEach
     void setup() {
         gson = new Gson();
-        fileReader = new FileReader();
-        fileWriter = new FileWriter(gson, fileReader);
+        fileWriter = new FileWriter(gson);
         testFile = tempDir.resolve("users.txt");
     }
 

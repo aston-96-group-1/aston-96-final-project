@@ -1,7 +1,6 @@
 package ru.aston.hometask.finalproject.filesystem;
 
 import com.google.gson.Gson;
-import ru.aston.hometask.finalproject.models.User;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,11 +11,9 @@ import java.util.List;
 
 public class FileWriter {
     private final Gson gson;
-    private final FileReader fileReader;
 
-    public FileWriter(final Gson gson, final FileReader fileReader) {
+    public FileWriter(final Gson gson) {
         this.gson = gson;
-        this.fileReader = fileReader;
     }
 
     public <T> void writeToFile(final String userPath, final List<T> listObj) {
