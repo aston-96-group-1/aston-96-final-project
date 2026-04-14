@@ -27,15 +27,6 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class ProviderMenuEntryTest {
     @Mock
-    private Scanner scanner;
-
-    @Mock
-    private Dotenv dotenv;
-
-    @Mock
-    private FileWriter fileWriter;
-
-    @Mock
     private ConsoleService consoleService;
 
     @Mock

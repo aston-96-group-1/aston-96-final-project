@@ -1,5 +1,6 @@
 package ru.aston.hometask.finalproject.ui;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +14,8 @@ import ru.aston.hometask.finalproject.models.User;
 import ru.aston.hometask.finalproject.services.ConsoleService;
 import ru.aston.hometask.finalproject.services.LogService;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -36,11 +39,20 @@ public class UserCounterMenuEntryTest {
     @Mock
     private SessionContext sessionContext;
 
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+
     private UserCounterMenuEntry userCounterMenuEntry;
 
     @BeforeEach
     void setup() {
+        System.setOut(new PrintStream(outContent));
         userCounterMenuEntry = new UserCounterMenuEntry(appContext, sessionContext);
+    }
+
+    @AfterEach
+    void tearDown() {
+        System.setOut(originalOut);
     }
 
     @Test

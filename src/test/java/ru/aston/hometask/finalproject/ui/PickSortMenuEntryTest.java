@@ -1,5 +1,6 @@
 package ru.aston.hometask.finalproject.ui;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,6 +44,7 @@ public class PickSortMenuEntryTest {
     private Sort sort;
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
 
     private PickSortMenuEntry pickSortMenuEntry;
 
@@ -50,6 +52,11 @@ public class PickSortMenuEntryTest {
     void setup() {
         System.setOut(new PrintStream(outContent));
         pickSortMenuEntry = new PickSortMenuEntry(appContext, sessionContext);
+    }
+
+    @AfterEach
+    void tearDown() {
+        System.setOut(originalOut);
     }
 
     @Test
