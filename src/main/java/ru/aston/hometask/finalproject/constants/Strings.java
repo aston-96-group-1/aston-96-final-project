@@ -32,7 +32,7 @@ public enum Strings {
     PASSWORD_PROMPT("Пароль: "),
     NAME_PROMPT("Имя: "),
 
-    ERROR_INVALID_MENU_ENTRY("Данного пункта не существует, попробуйте еще раз:"),
+    ERROR_INVALID_MENU_ENTRY("Данного пункта не существует"),
     ERROR_FILE_SIZE_LESS_THAN_NEEDED("Пользователей в файле меньше заданного. Size User: %d"),
     ERROR_FILE_READ_FAILED("Ошибка чтения файла!"),
     ERROR_FILE_NOT_VALID("Файл не найден: %s"),
